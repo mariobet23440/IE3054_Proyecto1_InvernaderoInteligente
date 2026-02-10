@@ -6,9 +6,11 @@
  * Modified: Gemini
  */ 
 
+#define F_CPU 16000000UL
 #include <avr/io.h>
 #include <avr/interrupt.h> // Necesario para sei() e ISR
 #include "TIMER1.h"
+#include <util/delay.h>
 
 int main(void)
 {
@@ -31,7 +33,19 @@ int main(void)
     /* Replace with your application code */
     while (1) 
     {
-        // El bucle está vacío porque todo lo maneja la interrupción
+		Timer1SetFrequency(1);
+		_delay_ms(5000);
+		Timer1SetFrequency(2);
+		_delay_ms(5000);
+		Timer1SetFrequency(4);
+		_delay_ms(5000);
+		Timer1SetFrequency(8);
+		_delay_ms(5000);
+		Timer1SetFrequency(16);
+		_delay_ms(5000);
+		Timer1SetFrequency(32);
+        _delay_ms(5000);
+		// El bucle está vacío porque todo lo maneja la interrupción
     }
 }
 

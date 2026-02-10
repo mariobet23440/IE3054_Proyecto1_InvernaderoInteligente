@@ -65,7 +65,7 @@ typedef enum
 #define F_CPU 16000000UL
 #endif
 
-void Timer1Init(TIMER1_MODE sMode, TIMER1_PRESCALERS sPrescaler, TIMER1_EN_INTTERUPTS enInterrupts, TIMER1_COMPARE_OUTPUT_MODE sComOutMode);
+void Timer1Init(TIMER1_MODE sMode, TIMER1_PRESCALERS sPrescaler, TIMER1_EN_INTERRUPTS enInterrupts, TIMER1_COMPARE_OUTPUT_MODE sComOutMode);
 void Timer1SetFrequency(uint16_t frequency);
 
 #endif /* TIMER1_H_ */
