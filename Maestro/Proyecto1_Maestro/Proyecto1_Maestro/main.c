@@ -12,19 +12,23 @@
 #include <util/delay.h>
 #include "HD44780_4b.h"
 #include "UART.h"
+#include "I2C.h"
 
 /************************************************************************/
 /* DEFINICIONES                                                         */
 /************************************************************************/
 #define UART_CMD1 'A'
 #define UART_CMD2 'B'
-#define UART_CMD3 'B'
-#define UART_CMD4 'B'
+#define UART_CMD3 'C'
+#define UART_CMD4 'D'
+
+#define SLAVE_ADDR 0x30
 
 /************************************************************************/
 /* VARIABLES GLOBALES Y ESTRUCTURAS DE DATOS                            */
 /************************************************************************/
 uint8_t uart_rx = '1';
+double time_delay = 500;
 
 
 // Estructura LCD (modo 4 bits)
@@ -49,6 +53,10 @@ void setup(void)
 	LCD_Init_4b(&lcd);
 	LCD_SetCursor(&lcd, 0, 0);
 	LCD_WriteString(&lcd, "Ejecutando");
+	
+	// Inicializar I2C a 100kHz con prescaler de 1
+	I2C_MasterInit(100000, 1);
+	
 	sei();
 }
 
@@ -58,7 +66,23 @@ int main(void)
 	setup();
 	while (1)
 	{	
-		// RECEPCIÓN DE COMANDOS UART
+		// COMUNICACIÓN I2C
+		// Iniciar comunicación
+		if (I2C_MasterStart()) {
+			// Comunicarse con el esclavo y recibir datos
+			if (I2C_Master_Write((SLAVE_ADDR << 1) | I2C_WRITE) == 0x18) {
+				I2C_Master_Write('A');
+				_delay_ms(500);
+				
+				// Mandar 'B' para que el esclavo apague el LED
+				I2C_Master_Write('B');
+			}
+			
+			// 4. Siempre cerrar con STOP
+			I2C_MasterStop();
+		}
+		
+		// 1. Recepción de comando UART
 		switch(uart_rx)
 		{
 			case UART_CMD1:
@@ -71,11 +95,23 @@ int main(void)
 			LCD_WriteString(&lcd, "COMANDO 2");
 			break;
 			
+			case UART_CMD3:
+			LCD_SetCursor(&lcd, 0, 1);
+			LCD_WriteString(&lcd, "COMANDO 3");
+			break;
+			
+			case UART_CMD4:
+			LCD_SetCursor(&lcd, 0, 1);
+			LCD_WriteString(&lcd, "COMANDO 4");
+			break;
+			
 			default:
 			break;
 		}
 		
-		_delay_ms(200);
+		_delay_ms(250);
+		
+		
 	}
 }
 
