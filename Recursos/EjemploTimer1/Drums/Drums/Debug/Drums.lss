@@ -1,0 +1,908 @@
+
+Drums.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000004  00800100  00000562  000005d6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000562  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  000005da  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000060c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000060  00000000  00000000  0000064c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000dac  00000000  00000000  000006ac  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000820  00000000  00000000  00001458  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000578  00000000  00000000  00001c78  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000ec  00000000  00000000  000021f0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000007ad  00000000  00000000  000022dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000054a  00000000  00000000  00002a89  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000040  00000000  00000000  00002fd3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 40 00 	jmp	0x80	; 0x80 <__ctors_end>
+   4:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+   8:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+   c:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  10:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  14:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  18:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  1c:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  20:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  24:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  28:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  2c:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  30:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  34:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  38:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  3c:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  40:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  44:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  48:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  4c:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  50:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  54:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  58:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  5c:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  60:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  64:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  68:	8a 01       	movw	r16, r20
+  6a:	b1 01       	movw	r22, r2
+  6c:	b1 01       	movw	r22, r2
+  6e:	b1 01       	movw	r22, r2
+  70:	a3 01       	movw	r20, r6
+  72:	8f 01       	movw	r16, r30
+  74:	a8 01       	movw	r20, r16
+  76:	94 01       	movw	r18, r8
+  78:	9e 01       	movw	r18, r28
+  7a:	b1 01       	movw	r22, r2
+  7c:	ad 01       	movw	r20, r26
+  7e:	99 01       	movw	r18, r18
+
+00000080 <__ctors_end>:
+  80:	11 24       	eor	r1, r1
+  82:	1f be       	out	0x3f, r1	; 63
+  84:	cf ef       	ldi	r28, 0xFF	; 255
+  86:	d8 e0       	ldi	r29, 0x08	; 8
+  88:	de bf       	out	0x3e, r29	; 62
+  8a:	cd bf       	out	0x3d, r28	; 61
+
+0000008c <__do_copy_data>:
+  8c:	11 e0       	ldi	r17, 0x01	; 1
+  8e:	a0 e0       	ldi	r26, 0x00	; 0
+  90:	b1 e0       	ldi	r27, 0x01	; 1
+  92:	e2 e6       	ldi	r30, 0x62	; 98
+  94:	f5 e0       	ldi	r31, 0x05	; 5
+  96:	02 c0       	rjmp	.+4      	; 0x9c <__do_copy_data+0x10>
+  98:	05 90       	lpm	r0, Z+
+  9a:	0d 92       	st	X+, r0
+  9c:	a4 30       	cpi	r26, 0x04	; 4
+  9e:	b1 07       	cpc	r27, r17
+  a0:	d9 f7       	brne	.-10     	; 0x98 <__do_copy_data+0xc>
+  a2:	0e 94 98 00 	call	0x130	; 0x130 <main>
+  a6:	0c 94 af 02 	jmp	0x55e	; 0x55e <_exit>
+
+000000aa <__bad_interrupt>:
+  aa:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000ae <play_kick>:
+#include <stdlib.h> // Necesario para rand()
+#include "TIMER1.h"
+
+// --- Función para el Bombo (Kick Drum) ---
+// Es una frecuencia que cae rápidamente simulando el golpe del parche
+void play_kick() {
+  ae:	cf 93       	push	r28
+  b0:	df 93       	push	r29
+	TCCR1A |= (1 << COM1A0); // Conectar sonido
+  b2:	e0 e8       	ldi	r30, 0x80	; 128
+  b4:	f0 e0       	ldi	r31, 0x00	; 0
+  b6:	80 81       	ld	r24, Z
+  b8:	80 64       	ori	r24, 0x40	; 64
+  ba:	80 83       	st	Z, r24
+	
+	// Barrido de frecuencia descendente
+	for (uint16_t freq = 200; freq > 40; freq -= 5) {
+  bc:	c8 ec       	ldi	r28, 0xC8	; 200
+  be:	d0 e0       	ldi	r29, 0x00	; 0
+  c0:	0a c0       	rjmp	.+20     	; 0xd6 <play_kick+0x28>
+		Timer1SetFrequency(freq);
+  c2:	ce 01       	movw	r24, r28
+  c4:	0e 94 25 01 	call	0x24a	; 0x24a <Timer1SetFrequency>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  c8:	8f e3       	ldi	r24, 0x3F	; 63
+  ca:	9f e1       	ldi	r25, 0x1F	; 31
+  cc:	01 97       	sbiw	r24, 0x01	; 1
+  ce:	f1 f7       	brne	.-4      	; 0xcc <play_kick+0x1e>
+  d0:	00 c0       	rjmp	.+0      	; 0xd2 <play_kick+0x24>
+  d2:	00 00       	nop
+// Es una frecuencia que cae rápidamente simulando el golpe del parche
+void play_kick() {
+	TCCR1A |= (1 << COM1A0); // Conectar sonido
+	
+	// Barrido de frecuencia descendente
+	for (uint16_t freq = 200; freq > 40; freq -= 5) {
+  d4:	25 97       	sbiw	r28, 0x05	; 5
+  d6:	c9 32       	cpi	r28, 0x29	; 41
+  d8:	d1 05       	cpc	r29, r1
+  da:	98 f7       	brcc	.-26     	; 0xc2 <play_kick+0x14>
+		Timer1SetFrequency(freq);
+		_delay_ms(2); // Duración del descenso
+	}
+	
+	TCCR1A &= ~(1 << COM1A0); // Silencio
+  dc:	e0 e8       	ldi	r30, 0x80	; 128
+  de:	f0 e0       	ldi	r31, 0x00	; 0
+  e0:	80 81       	ld	r24, Z
+  e2:	8f 7b       	andi	r24, 0xBF	; 191
+  e4:	80 83       	st	Z, r24
+}
+  e6:	df 91       	pop	r29
+  e8:	cf 91       	pop	r28
+  ea:	08 95       	ret
+
+000000ec <play_snare>:
+
+// --- Función para el Redoblante (Snare Drum) ---
+// Usa frecuencias aleatorias muy rápidas para simular ruido (noise)
+void play_snare() {
+  ec:	cf 93       	push	r28
+	TCCR1A |= (1 << COM1A0); // Conectar sonido
+  ee:	e0 e8       	ldi	r30, 0x80	; 128
+  f0:	f0 e0       	ldi	r31, 0x00	; 0
+  f2:	80 81       	ld	r24, Z
+  f4:	80 64       	ori	r24, 0x40	; 64
+  f6:	80 83       	st	Z, r24
+	
+	for (uint8_t i = 0; i < 60; i++) {
+  f8:	c0 e0       	ldi	r28, 0x00	; 0
+  fa:	11 c0       	rjmp	.+34     	; 0x11e <play_snare+0x32>
+		// Generar una frecuencia aleatoria entre 400 y 1200 Hz
+		uint16_t noise = (rand() % 800) + 400;
+  fc:	0e 94 78 02 	call	0x4f0	; 0x4f0 <rand>
+ 100:	60 e2       	ldi	r22, 0x20	; 32
+ 102:	73 e0       	ldi	r23, 0x03	; 3
+ 104:	0e 94 c2 01 	call	0x384	; 0x384 <__divmodhi4>
+		Timer1SetFrequency(noise);
+ 108:	80 57       	subi	r24, 0x70	; 112
+ 10a:	9e 4f       	sbci	r25, 0xFE	; 254
+ 10c:	0e 94 25 01 	call	0x24a	; 0x24a <Timer1SetFrequency>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 110:	8f e7       	ldi	r24, 0x7F	; 127
+ 112:	9c e0       	ldi	r25, 0x0C	; 12
+ 114:	01 97       	sbiw	r24, 0x01	; 1
+ 116:	f1 f7       	brne	.-4      	; 0x114 <play_snare+0x28>
+ 118:	00 c0       	rjmp	.+0      	; 0x11a <play_snare+0x2e>
+ 11a:	00 00       	nop
+// --- Función para el Redoblante (Snare Drum) ---
+// Usa frecuencias aleatorias muy rápidas para simular ruido (noise)
+void play_snare() {
+	TCCR1A |= (1 << COM1A0); // Conectar sonido
+	
+	for (uint8_t i = 0; i < 60; i++) {
+ 11c:	cf 5f       	subi	r28, 0xFF	; 255
+ 11e:	cc 33       	cpi	r28, 0x3C	; 60
+ 120:	68 f3       	brcs	.-38     	; 0xfc <play_snare+0x10>
+		uint16_t noise = (rand() % 800) + 400;
+		Timer1SetFrequency(noise);
+		_delay_us(800); // Cambio de frecuencia extremadamente rápido
+	}
+	
+	TCCR1A &= ~(1 << COM1A0); // Silencio
+ 122:	e0 e8       	ldi	r30, 0x80	; 128
+ 124:	f0 e0       	ldi	r31, 0x00	; 0
+ 126:	80 81       	ld	r24, Z
+ 128:	8f 7b       	andi	r24, 0xBF	; 191
+ 12a:	80 83       	st	Z, r24
+}
+ 12c:	cf 91       	pop	r28
+ 12e:	08 95       	ret
+
+00000130 <main>:
+
+int main(void)
+{
+	// Inicializar Timer1 en Modo CTC con Prescaler 8
+	// Usamos Prescaler 8 para tener alta resolución en el barrido de frecuencias
+	Timer1Init(TIMER1_MODE4_CTC_OCR1A, TIMER1_PRESCALER8, TIMER1_INTERRUPTS_DISABLED, TIMER1_COMP_OUT_MODE1);
+ 130:	21 e0       	ldi	r18, 0x01	; 1
+ 132:	40 e0       	ldi	r20, 0x00	; 0
+ 134:	62 e0       	ldi	r22, 0x02	; 2
+ 136:	84 e0       	ldi	r24, 0x04	; 4
+ 138:	0e 94 e5 00 	call	0x1ca	; 0x1ca <Timer1Init>
+	
+	DDRB |= (1 << DDB1); // Pin PB1 (OC1A) como salida para el buzzer
+ 13c:	84 b1       	in	r24, 0x04	; 4
+ 13e:	82 60       	ori	r24, 0x02	; 2
+ 140:	84 b9       	out	0x04, r24	; 4
+
+	while (1)
+	{
+		// Ritmo básico: Bombo - Redoblante - Bombo - Redoblante
+		play_kick();
+ 142:	0e 94 57 00 	call	0xae	; 0xae <play_kick>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 146:	2f ef       	ldi	r18, 0xFF	; 255
+ 148:	85 ea       	ldi	r24, 0xA5	; 165
+ 14a:	9e e0       	ldi	r25, 0x0E	; 14
+ 14c:	21 50       	subi	r18, 0x01	; 1
+ 14e:	80 40       	sbci	r24, 0x00	; 0
+ 150:	90 40       	sbci	r25, 0x00	; 0
+ 152:	e1 f7       	brne	.-8      	; 0x14c <main+0x1c>
+ 154:	00 c0       	rjmp	.+0      	; 0x156 <main+0x26>
+ 156:	00 00       	nop
+		_delay_ms(300);
+		
+		play_snare();
+ 158:	0e 94 76 00 	call	0xec	; 0xec <play_snare>
+ 15c:	2f ef       	ldi	r18, 0xFF	; 255
+ 15e:	85 ea       	ldi	r24, 0xA5	; 165
+ 160:	9e e0       	ldi	r25, 0x0E	; 14
+ 162:	21 50       	subi	r18, 0x01	; 1
+ 164:	80 40       	sbci	r24, 0x00	; 0
+ 166:	90 40       	sbci	r25, 0x00	; 0
+ 168:	e1 f7       	brne	.-8      	; 0x162 <main+0x32>
+ 16a:	00 c0       	rjmp	.+0      	; 0x16c <main+0x3c>
+ 16c:	00 00       	nop
+		_delay_ms(300);
+		
+		play_kick();
+ 16e:	0e 94 57 00 	call	0xae	; 0xae <play_kick>
+ 172:	2f ef       	ldi	r18, 0xFF	; 255
+ 174:	82 e5       	ldi	r24, 0x52	; 82
+ 176:	97 e0       	ldi	r25, 0x07	; 7
+ 178:	21 50       	subi	r18, 0x01	; 1
+ 17a:	80 40       	sbci	r24, 0x00	; 0
+ 17c:	90 40       	sbci	r25, 0x00	; 0
+ 17e:	e1 f7       	brne	.-8      	; 0x178 <main+0x48>
+ 180:	00 c0       	rjmp	.+0      	; 0x182 <main+0x52>
+ 182:	00 00       	nop
+		_delay_ms(150);
+		
+		play_kick();
+ 184:	0e 94 57 00 	call	0xae	; 0xae <play_kick>
+ 188:	2f ef       	ldi	r18, 0xFF	; 255
+ 18a:	82 e5       	ldi	r24, 0x52	; 82
+ 18c:	97 e0       	ldi	r25, 0x07	; 7
+ 18e:	21 50       	subi	r18, 0x01	; 1
+ 190:	80 40       	sbci	r24, 0x00	; 0
+ 192:	90 40       	sbci	r25, 0x00	; 0
+ 194:	e1 f7       	brne	.-8      	; 0x18e <main+0x5e>
+ 196:	00 c0       	rjmp	.+0      	; 0x198 <main+0x68>
+ 198:	00 00       	nop
+		_delay_ms(150);
+		
+		play_snare();
+ 19a:	0e 94 76 00 	call	0xec	; 0xec <play_snare>
+ 19e:	2f ef       	ldi	r18, 0xFF	; 255
+ 1a0:	8b e4       	ldi	r24, 0x4B	; 75
+ 1a2:	9d e1       	ldi	r25, 0x1D	; 29
+ 1a4:	21 50       	subi	r18, 0x01	; 1
+ 1a6:	80 40       	sbci	r24, 0x00	; 0
+ 1a8:	90 40       	sbci	r25, 0x00	; 0
+ 1aa:	e1 f7       	brne	.-8      	; 0x1a4 <main+0x74>
+ 1ac:	00 c0       	rjmp	.+0      	; 0x1ae <main+0x7e>
+ 1ae:	00 00       	nop
+ 1b0:	c8 cf       	rjmp	.-112    	; 0x142 <main+0x12>
+
+000001b2 <getTimer1WGMode>:
+}
+
+// Función interna para leer el modo configurado
+static TIMER1_MODE getTimer1WGMode(void)
+{
+    uint8_t mode10 = TCCR1A & 0x03;
+ 1b2:	20 91 80 00 	lds	r18, 0x0080	; 0x800080 <__TEXT_REGION_LENGTH__+0x7f8080>
+ 1b6:	23 70       	andi	r18, 0x03	; 3
+    // Recuperar bits WGM13(4) y WGM12(3) y devolverlos a posición 3 y 2
+    uint8_t mode32 = (TCCR1B & 0x18) >> 1; 
+ 1b8:	90 91 81 00 	lds	r25, 0x0081	; 0x800081 <__TEXT_REGION_LENGTH__+0x7f8081>
+ 1bc:	98 71       	andi	r25, 0x18	; 24
+ 1be:	89 2f       	mov	r24, r25
+ 1c0:	90 e0       	ldi	r25, 0x00	; 0
+ 1c2:	95 95       	asr	r25
+ 1c4:	87 95       	ror	r24
+    TIMER1_MODE wgMode = (TIMER1_MODE) (mode10 | mode32);
+    return  wgMode;
+}
+ 1c6:	82 2b       	or	r24, r18
+ 1c8:	08 95       	ret
+
+000001ca <Timer1Init>:
+// Inicialización de TIMER1
+// Los prefijos s denotan "selector"
+void Timer1Init(TIMER1_MODE sMode, TIMER1_PRESCALERS sPrescaler, TIMER1_EN_INTERRUPTS enInterrupts, TIMER1_COMPARE_OUTPUT_MODE sComOutMode)
+{
+    // Limpiar registros previos
+    TCCR1A = 0; TCCR1B = 0; TIMSK1 = 0;
+ 1ca:	a0 e8       	ldi	r26, 0x80	; 128
+ 1cc:	b0 e0       	ldi	r27, 0x00	; 0
+ 1ce:	1c 92       	st	X, r1
+ 1d0:	e1 e8       	ldi	r30, 0x81	; 129
+ 1d2:	f0 e0       	ldi	r31, 0x00	; 0
+ 1d4:	10 82       	st	Z, r1
+ 1d6:	10 92 6f 00 	sts	0x006F, r1	; 0x80006f <__TEXT_REGION_LENGTH__+0x7f806f>
+
+    // Aplicar máscara de bits a selectores de modo y prescaler
+    uint8_t mode10 = sMode & 0x03;          // Bits 1 y 0 para TCCR1A
+ 1da:	78 2f       	mov	r23, r24
+ 1dc:	73 70       	andi	r23, 0x03	; 3
+    
+    // CORRECCIÓN: Desplazamiento de bits WGM13 y WGM12
+    // En el enum están en pos 3 y 2. En TCCR1B van en pos 4 y 3.
+    // Se desplaza 1 a la izquierda (<< 1), no 3.
+    uint8_t mode32 = (sMode & 0x0C) << 1;   
+ 1de:	58 2f       	mov	r21, r24
+ 1e0:	5c 70       	andi	r21, 0x0C	; 12
+ 1e2:	55 0f       	add	r21, r21
+    
+    uint8_t prescaler = sPrescaler & 0x07;  // Obtener últimos 3 bits de prescaler
+ 1e4:	67 70       	andi	r22, 0x07	; 7
+    uint8_t cout_mode = (sComOutMode & 0x03) << 6;
+ 1e6:	90 e4       	ldi	r25, 0x40	; 64
+ 1e8:	29 9f       	mul	r18, r25
+ 1ea:	90 01       	movw	r18, r0
+ 1ec:	11 24       	eor	r1, r1
+    
+    TCCR1A |= mode10 | cout_mode;
+ 1ee:	9c 91       	ld	r25, X
+ 1f0:	27 2b       	or	r18, r23
+ 1f2:	29 2b       	or	r18, r25
+ 1f4:	2c 93       	st	X, r18
+    TCCR1B |= mode32 | prescaler;
+ 1f6:	90 81       	ld	r25, Z
+ 1f8:	65 2b       	or	r22, r21
+ 1fa:	69 2b       	or	r22, r25
+ 1fc:	60 83       	st	Z, r22
+    
+    // Habilitar interrupciones de manera selectiva y segura
+    if(enInterrupts == TIMER1_INTERRUPTS_ENABLED) 
+ 1fe:	41 30       	cpi	r20, 0x01	; 1
+ 200:	19 f5       	brne	.+70     	; 0x248 <Timer1Init+0x7e>
+    {
+        // Interrupciones por Comparación (OCR1A)
+        if (sMode == TIMER1_MODE4_CTC_OCR1A || sMode == TIMER1_MODE15_FASTPWM_OCR1A || sMode == TIMER1_MODE9_PWM_PCF_OCR1A || sMode == TIMER1_MODE11_PWM_PC_OCR1A) 
+ 202:	84 30       	cpi	r24, 0x04	; 4
+ 204:	31 f0       	breq	.+12     	; 0x212 <Timer1Init+0x48>
+ 206:	8f 30       	cpi	r24, 0x0F	; 15
+ 208:	21 f0       	breq	.+8      	; 0x212 <Timer1Init+0x48>
+ 20a:	89 30       	cpi	r24, 0x09	; 9
+ 20c:	11 f0       	breq	.+4      	; 0x212 <Timer1Init+0x48>
+ 20e:	8b 30       	cpi	r24, 0x0B	; 11
+ 210:	31 f4       	brne	.+12     	; 0x21e <Timer1Init+0x54>
+        {
+            TIMSK1 |= (1 << OCIE1A);
+ 212:	ef e6       	ldi	r30, 0x6F	; 111
+ 214:	f0 e0       	ldi	r31, 0x00	; 0
+ 216:	80 81       	ld	r24, Z
+ 218:	82 60       	ori	r24, 0x02	; 2
+ 21a:	80 83       	st	Z, r24
+ 21c:	08 95       	ret
+        }
+        // Interrupciones por Captura (ICR1) - Usado como TOP en otros modos
+        else if (sMode == TIMER1_MODE12_CTC_ICR1 || sMode == TIMER1_MODE14_FASTPWM_ICR1A || sMode == TIMER1_MODE8_PWM_PCF_ICR1 || sMode == TIMER1_MODE10_PWM_PC_ICR1)
+ 21e:	8c 30       	cpi	r24, 0x0C	; 12
+ 220:	31 f0       	breq	.+12     	; 0x22e <Timer1Init+0x64>
+ 222:	8e 30       	cpi	r24, 0x0E	; 14
+ 224:	21 f0       	breq	.+8      	; 0x22e <Timer1Init+0x64>
+ 226:	88 30       	cpi	r24, 0x08	; 8
+ 228:	11 f0       	breq	.+4      	; 0x22e <Timer1Init+0x64>
+ 22a:	8a 30       	cpi	r24, 0x0A	; 10
+ 22c:	31 f4       	brne	.+12     	; 0x23a <Timer1Init+0x70>
+        {
+            TIMSK1 |= (1 << ICIE1); 
+ 22e:	ef e6       	ldi	r30, 0x6F	; 111
+ 230:	f0 e0       	ldi	r31, 0x00	; 0
+ 232:	80 81       	ld	r24, Z
+ 234:	80 62       	ori	r24, 0x20	; 32
+ 236:	80 83       	st	Z, r24
+ 238:	08 95       	ret
+        }
+        // Overflow para modo Normal
+        else if (sMode == TIMER1_MODE0_NORMAL)
+ 23a:	81 11       	cpse	r24, r1
+ 23c:	05 c0       	rjmp	.+10     	; 0x248 <Timer1Init+0x7e>
+        {
+            TIMSK1 |= (1 << TOIE1);
+ 23e:	ef e6       	ldi	r30, 0x6F	; 111
+ 240:	f0 e0       	ldi	r31, 0x00	; 0
+ 242:	80 81       	ld	r24, Z
+ 244:	81 60       	ori	r24, 0x01	; 1
+ 246:	80 83       	st	Z, r24
+ 248:	08 95       	ret
+
+0000024a <Timer1SetFrequency>:
+    return  wgMode;
+}
+
+// Establecer frecuencia, calculando automáticamente el TOP según el modo
+void Timer1SetFrequency(uint16_t frequency)
+{
+ 24a:	4f 92       	push	r4
+ 24c:	5f 92       	push	r5
+ 24e:	6f 92       	push	r6
+ 250:	7f 92       	push	r7
+ 252:	8f 92       	push	r8
+ 254:	9f 92       	push	r9
+ 256:	af 92       	push	r10
+ 258:	bf 92       	push	r11
+ 25a:	cf 92       	push	r12
+ 25c:	df 92       	push	r13
+ 25e:	ef 92       	push	r14
+ 260:	ff 92       	push	r15
+ 262:	0f 93       	push	r16
+ 264:	1f 93       	push	r17
+ 266:	cf 93       	push	r28
+ 268:	df 93       	push	r29
+ 26a:	dc 01       	movw	r26, r24
+    // Determinar prescaler
+    // CORRECCIÓN: Máscara 0x07 para leer los 3 bits
+    uint8_t sPrescaler = TCCR1B & 0x07;
+ 26c:	90 91 81 00 	lds	r25, 0x0081	; 0x800081 <__TEXT_REGION_LENGTH__+0x7f8081>
+ 270:	97 70       	andi	r25, 0x07	; 7
+    uint32_t prescaler = 1; // Usamos uint32_t para evitar desbordes en multiplicaciones
+    
+    switch(sPrescaler)
+ 272:	93 30       	cpi	r25, 0x03	; 3
+ 274:	69 f0       	breq	.+26     	; 0x290 <Timer1SetFrequency+0x46>
+ 276:	18 f4       	brcc	.+6      	; 0x27e <Timer1SetFrequency+0x34>
+ 278:	92 30       	cpi	r25, 0x02	; 2
+ 27a:	c9 f0       	breq	.+50     	; 0x2ae <Timer1SetFrequency+0x64>
+ 27c:	04 c0       	rjmp	.+8      	; 0x286 <Timer1SetFrequency+0x3c>
+ 27e:	94 30       	cpi	r25, 0x04	; 4
+ 280:	61 f0       	breq	.+24     	; 0x29a <Timer1SetFrequency+0x50>
+ 282:	95 30       	cpi	r25, 0x05	; 5
+ 284:	79 f0       	breq	.+30     	; 0x2a4 <Timer1SetFrequency+0x5a>
+    {
+        case 1:  prescaler = 1;     break;
+ 286:	21 e0       	ldi	r18, 0x01	; 1
+ 288:	30 e0       	ldi	r19, 0x00	; 0
+ 28a:	40 e0       	ldi	r20, 0x00	; 0
+ 28c:	50 e0       	ldi	r21, 0x00	; 0
+ 28e:	13 c0       	rjmp	.+38     	; 0x2b6 <Timer1SetFrequency+0x6c>
+        case 2:  prescaler = 8;     break;
+        case 3:  prescaler = 64;    break;
+ 290:	20 e4       	ldi	r18, 0x40	; 64
+ 292:	30 e0       	ldi	r19, 0x00	; 0
+ 294:	40 e0       	ldi	r20, 0x00	; 0
+ 296:	50 e0       	ldi	r21, 0x00	; 0
+ 298:	0e c0       	rjmp	.+28     	; 0x2b6 <Timer1SetFrequency+0x6c>
+        case 4:  prescaler = 256;   break;
+ 29a:	20 e0       	ldi	r18, 0x00	; 0
+ 29c:	31 e0       	ldi	r19, 0x01	; 1
+ 29e:	40 e0       	ldi	r20, 0x00	; 0
+ 2a0:	50 e0       	ldi	r21, 0x00	; 0
+ 2a2:	09 c0       	rjmp	.+18     	; 0x2b6 <Timer1SetFrequency+0x6c>
+        case 5:  prescaler = 1024;  break;
+ 2a4:	20 e0       	ldi	r18, 0x00	; 0
+ 2a6:	34 e0       	ldi	r19, 0x04	; 4
+ 2a8:	40 e0       	ldi	r20, 0x00	; 0
+ 2aa:	50 e0       	ldi	r21, 0x00	; 0
+ 2ac:	04 c0       	rjmp	.+8      	; 0x2b6 <Timer1SetFrequency+0x6c>
+    uint32_t prescaler = 1; // Usamos uint32_t para evitar desbordes en multiplicaciones
+    
+    switch(sPrescaler)
+    {
+        case 1:  prescaler = 1;     break;
+        case 2:  prescaler = 8;     break;
+ 2ae:	28 e0       	ldi	r18, 0x08	; 8
+ 2b0:	30 e0       	ldi	r19, 0x00	; 0
+ 2b2:	40 e0       	ldi	r20, 0x00	; 0
+ 2b4:	50 e0       	ldi	r21, 0x00	; 0
+    
+    // --- CÁLCULOS DE VARIABLES TEMPORALES ---
+    // Usamos (uint32_t)F_CPU para asegurar precisión
+    
+    // 1. CTC: f = F_CPU / (2 * N * (1+OCR)). Despejamos OCR.
+    uint16_t temp_CTC       = (F_CPU / (2 * prescaler * frequency)) - 1;
+ 2b6:	0e 94 fe 01 	call	0x3fc	; 0x3fc <__muluhisi3>
+ 2ba:	4b 01       	movw	r8, r22
+ 2bc:	5c 01       	movw	r10, r24
+ 2be:	9b 01       	movw	r18, r22
+ 2c0:	ac 01       	movw	r20, r24
+ 2c2:	22 0f       	add	r18, r18
+ 2c4:	33 1f       	adc	r19, r19
+ 2c6:	44 1f       	adc	r20, r20
+ 2c8:	55 1f       	adc	r21, r21
+ 2ca:	0f 2e       	mov	r0, r31
+ 2cc:	41 2c       	mov	r4, r1
+ 2ce:	f4 e2       	ldi	r31, 0x24	; 36
+ 2d0:	5f 2e       	mov	r5, r31
+ 2d2:	f4 ef       	ldi	r31, 0xF4	; 244
+ 2d4:	6f 2e       	mov	r6, r31
+ 2d6:	71 2c       	mov	r7, r1
+ 2d8:	f0 2d       	mov	r31, r0
+ 2da:	c3 01       	movw	r24, r6
+ 2dc:	b2 01       	movw	r22, r4
+ 2de:	0e 94 d6 01 	call	0x3ac	; 0x3ac <__udivmodsi4>
+ 2e2:	69 01       	movw	r12, r18
+ 2e4:	7a 01       	movw	r14, r20
+ 2e6:	89 01       	movw	r16, r18
+ 2e8:	01 50       	subi	r16, 0x01	; 1
+ 2ea:	11 09       	sbc	r17, r1
+    
+    // 2. FAST PWM: f = F_CPU / (N * (1+TOP)). Despejamos TOP.
+    uint16_t temp_FASTPWM   = (F_CPU / (prescaler * frequency)) - 1;
+ 2ec:	c3 01       	movw	r24, r6
+ 2ee:	b2 01       	movw	r22, r4
+ 2f0:	a5 01       	movw	r20, r10
+ 2f2:	94 01       	movw	r18, r8
+ 2f4:	0e 94 d6 01 	call	0x3ac	; 0x3ac <__udivmodsi4>
+ 2f8:	e9 01       	movw	r28, r18
+ 2fa:	21 97       	sbiw	r28, 0x01	; 1
+    
+    // 4. PHASE & FREQ CORRECT: Igual que Phase Correct
+    uint16_t temp_PWM_PCF   = (F_CPU / (2 * prescaler * frequency));
+    
+    
+    TIMER1_MODE wgMode = (TIMER1_MODE) getTimer1WGMode();
+ 2fc:	0e 94 d9 00 	call	0x1b2	; 0x1b2 <getTimer1WGMode>
+    
+    // --- ASIGNACIÓN DE VALORES SEGÚN EL MODO (CASE COMPLETO) ---
+    switch(wgMode)
+ 300:	90 e0       	ldi	r25, 0x00	; 0
+ 302:	fc 01       	movw	r30, r24
+ 304:	34 97       	sbiw	r30, 0x04	; 4
+ 306:	ec 30       	cpi	r30, 0x0C	; 12
+ 308:	f1 05       	cpc	r31, r1
+ 30a:	58 f5       	brcc	.+86     	; 0x362 <Timer1SetFrequency+0x118>
+ 30c:	ec 5c       	subi	r30, 0xCC	; 204
+ 30e:	ff 4f       	sbci	r31, 0xFF	; 255
+ 310:	0c 94 f8 01 	jmp	0x3f0	; 0x3f0 <__tablejump2__>
+    {
+        // Modos que usan OCR1A como tope
+        case TIMER1_MODE4_CTC_OCR1A:        OCR1A = temp_CTC;       break;  
+ 314:	10 93 89 00 	sts	0x0089, r17	; 0x800089 <__TEXT_REGION_LENGTH__+0x7f8089>
+ 318:	00 93 88 00 	sts	0x0088, r16	; 0x800088 <__TEXT_REGION_LENGTH__+0x7f8088>
+ 31c:	22 c0       	rjmp	.+68     	; 0x362 <Timer1SetFrequency+0x118>
+        case TIMER1_MODE9_PWM_PCF_OCR1A:    OCR1A = temp_PWM_PCF;   break;
+ 31e:	d0 92 89 00 	sts	0x0089, r13	; 0x800089 <__TEXT_REGION_LENGTH__+0x7f8089>
+ 322:	c0 92 88 00 	sts	0x0088, r12	; 0x800088 <__TEXT_REGION_LENGTH__+0x7f8088>
+ 326:	1d c0       	rjmp	.+58     	; 0x362 <Timer1SetFrequency+0x118>
+        case TIMER1_MODE11_PWM_PC_OCR1A:    OCR1A = temp_PWM_PC;    break;
+ 328:	d0 92 89 00 	sts	0x0089, r13	; 0x800089 <__TEXT_REGION_LENGTH__+0x7f8089>
+ 32c:	c0 92 88 00 	sts	0x0088, r12	; 0x800088 <__TEXT_REGION_LENGTH__+0x7f8088>
+ 330:	18 c0       	rjmp	.+48     	; 0x362 <Timer1SetFrequency+0x118>
+        case TIMER1_MODE15_FASTPWM_OCR1A:   OCR1A = temp_FASTPWM;   break;
+ 332:	d0 93 89 00 	sts	0x0089, r29	; 0x800089 <__TEXT_REGION_LENGTH__+0x7f8089>
+ 336:	c0 93 88 00 	sts	0x0088, r28	; 0x800088 <__TEXT_REGION_LENGTH__+0x7f8088>
+ 33a:	13 c0       	rjmp	.+38     	; 0x362 <Timer1SetFrequency+0x118>
+
+        // Modos que usan ICR1 como tope
+        case TIMER1_MODE12_CTC_ICR1:        ICR1 = temp_CTC;        break;
+ 33c:	10 93 87 00 	sts	0x0087, r17	; 0x800087 <__TEXT_REGION_LENGTH__+0x7f8087>
+ 340:	00 93 86 00 	sts	0x0086, r16	; 0x800086 <__TEXT_REGION_LENGTH__+0x7f8086>
+ 344:	0e c0       	rjmp	.+28     	; 0x362 <Timer1SetFrequency+0x118>
+        case TIMER1_MODE8_PWM_PCF_ICR1:     ICR1 = temp_PWM_PCF;    break;
+ 346:	d0 92 87 00 	sts	0x0087, r13	; 0x800087 <__TEXT_REGION_LENGTH__+0x7f8087>
+ 34a:	c0 92 86 00 	sts	0x0086, r12	; 0x800086 <__TEXT_REGION_LENGTH__+0x7f8086>
+ 34e:	09 c0       	rjmp	.+18     	; 0x362 <Timer1SetFrequency+0x118>
+        case TIMER1_MODE10_PWM_PC_ICR1:     ICR1 = temp_PWM_PC;     break;
+ 350:	d0 92 87 00 	sts	0x0087, r13	; 0x800087 <__TEXT_REGION_LENGTH__+0x7f8087>
+ 354:	c0 92 86 00 	sts	0x0086, r12	; 0x800086 <__TEXT_REGION_LENGTH__+0x7f8086>
+ 358:	04 c0       	rjmp	.+8      	; 0x362 <Timer1SetFrequency+0x118>
+        case TIMER1_MODE14_FASTPWM_ICR1A:   ICR1 = temp_FASTPWM;    break;
+ 35a:	d0 93 87 00 	sts	0x0087, r29	; 0x800087 <__TEXT_REGION_LENGTH__+0x7f8087>
+ 35e:	c0 93 86 00 	sts	0x0086, r28	; 0x800086 <__TEXT_REGION_LENGTH__+0x7f8086>
+        // Modos fijos (8, 9, 10 bits) no pueden cambiar frecuencia arbitraria
+        default:
+            // No hacemos nada o reseteamos a max
+            break;
+    }
+}
+ 362:	df 91       	pop	r29
+ 364:	cf 91       	pop	r28
+ 366:	1f 91       	pop	r17
+ 368:	0f 91       	pop	r16
+ 36a:	ff 90       	pop	r15
+ 36c:	ef 90       	pop	r14
+ 36e:	df 90       	pop	r13
+ 370:	cf 90       	pop	r12
+ 372:	bf 90       	pop	r11
+ 374:	af 90       	pop	r10
+ 376:	9f 90       	pop	r9
+ 378:	8f 90       	pop	r8
+ 37a:	7f 90       	pop	r7
+ 37c:	6f 90       	pop	r6
+ 37e:	5f 90       	pop	r5
+ 380:	4f 90       	pop	r4
+ 382:	08 95       	ret
+
+00000384 <__divmodhi4>:
+ 384:	97 fb       	bst	r25, 7
+ 386:	07 2e       	mov	r0, r23
+ 388:	16 f4       	brtc	.+4      	; 0x38e <__divmodhi4+0xa>
+ 38a:	00 94       	com	r0
+ 38c:	07 d0       	rcall	.+14     	; 0x39c <__divmodhi4_neg1>
+ 38e:	77 fd       	sbrc	r23, 7
+ 390:	09 d0       	rcall	.+18     	; 0x3a4 <__divmodhi4_neg2>
+ 392:	0e 94 09 02 	call	0x412	; 0x412 <__udivmodhi4>
+ 396:	07 fc       	sbrc	r0, 7
+ 398:	05 d0       	rcall	.+10     	; 0x3a4 <__divmodhi4_neg2>
+ 39a:	3e f4       	brtc	.+14     	; 0x3aa <__divmodhi4_exit>
+
+0000039c <__divmodhi4_neg1>:
+ 39c:	90 95       	com	r25
+ 39e:	81 95       	neg	r24
+ 3a0:	9f 4f       	sbci	r25, 0xFF	; 255
+ 3a2:	08 95       	ret
+
+000003a4 <__divmodhi4_neg2>:
+ 3a4:	70 95       	com	r23
+ 3a6:	61 95       	neg	r22
+ 3a8:	7f 4f       	sbci	r23, 0xFF	; 255
+
+000003aa <__divmodhi4_exit>:
+ 3aa:	08 95       	ret
+
+000003ac <__udivmodsi4>:
+ 3ac:	a1 e2       	ldi	r26, 0x21	; 33
+ 3ae:	1a 2e       	mov	r1, r26
+ 3b0:	aa 1b       	sub	r26, r26
+ 3b2:	bb 1b       	sub	r27, r27
+ 3b4:	fd 01       	movw	r30, r26
+ 3b6:	0d c0       	rjmp	.+26     	; 0x3d2 <__udivmodsi4_ep>
+
+000003b8 <__udivmodsi4_loop>:
+ 3b8:	aa 1f       	adc	r26, r26
+ 3ba:	bb 1f       	adc	r27, r27
+ 3bc:	ee 1f       	adc	r30, r30
+ 3be:	ff 1f       	adc	r31, r31
+ 3c0:	a2 17       	cp	r26, r18
+ 3c2:	b3 07       	cpc	r27, r19
+ 3c4:	e4 07       	cpc	r30, r20
+ 3c6:	f5 07       	cpc	r31, r21
+ 3c8:	20 f0       	brcs	.+8      	; 0x3d2 <__udivmodsi4_ep>
+ 3ca:	a2 1b       	sub	r26, r18
+ 3cc:	b3 0b       	sbc	r27, r19
+ 3ce:	e4 0b       	sbc	r30, r20
+ 3d0:	f5 0b       	sbc	r31, r21
+
+000003d2 <__udivmodsi4_ep>:
+ 3d2:	66 1f       	adc	r22, r22
+ 3d4:	77 1f       	adc	r23, r23
+ 3d6:	88 1f       	adc	r24, r24
+ 3d8:	99 1f       	adc	r25, r25
+ 3da:	1a 94       	dec	r1
+ 3dc:	69 f7       	brne	.-38     	; 0x3b8 <__udivmodsi4_loop>
+ 3de:	60 95       	com	r22
+ 3e0:	70 95       	com	r23
+ 3e2:	80 95       	com	r24
+ 3e4:	90 95       	com	r25
+ 3e6:	9b 01       	movw	r18, r22
+ 3e8:	ac 01       	movw	r20, r24
+ 3ea:	bd 01       	movw	r22, r26
+ 3ec:	cf 01       	movw	r24, r30
+ 3ee:	08 95       	ret
+
+000003f0 <__tablejump2__>:
+ 3f0:	ee 0f       	add	r30, r30
+ 3f2:	ff 1f       	adc	r31, r31
+ 3f4:	05 90       	lpm	r0, Z+
+ 3f6:	f4 91       	lpm	r31, Z
+ 3f8:	e0 2d       	mov	r30, r0
+ 3fa:	09 94       	ijmp
+
+000003fc <__muluhisi3>:
+ 3fc:	0e 94 1d 02 	call	0x43a	; 0x43a <__umulhisi3>
+ 400:	a5 9f       	mul	r26, r21
+ 402:	90 0d       	add	r25, r0
+ 404:	b4 9f       	mul	r27, r20
+ 406:	90 0d       	add	r25, r0
+ 408:	a4 9f       	mul	r26, r20
+ 40a:	80 0d       	add	r24, r0
+ 40c:	91 1d       	adc	r25, r1
+ 40e:	11 24       	eor	r1, r1
+ 410:	08 95       	ret
+
+00000412 <__udivmodhi4>:
+ 412:	aa 1b       	sub	r26, r26
+ 414:	bb 1b       	sub	r27, r27
+ 416:	51 e1       	ldi	r21, 0x11	; 17
+ 418:	07 c0       	rjmp	.+14     	; 0x428 <__udivmodhi4_ep>
+
+0000041a <__udivmodhi4_loop>:
+ 41a:	aa 1f       	adc	r26, r26
+ 41c:	bb 1f       	adc	r27, r27
+ 41e:	a6 17       	cp	r26, r22
+ 420:	b7 07       	cpc	r27, r23
+ 422:	10 f0       	brcs	.+4      	; 0x428 <__udivmodhi4_ep>
+ 424:	a6 1b       	sub	r26, r22
+ 426:	b7 0b       	sbc	r27, r23
+
+00000428 <__udivmodhi4_ep>:
+ 428:	88 1f       	adc	r24, r24
+ 42a:	99 1f       	adc	r25, r25
+ 42c:	5a 95       	dec	r21
+ 42e:	a9 f7       	brne	.-22     	; 0x41a <__udivmodhi4_loop>
+ 430:	80 95       	com	r24
+ 432:	90 95       	com	r25
+ 434:	bc 01       	movw	r22, r24
+ 436:	cd 01       	movw	r24, r26
+ 438:	08 95       	ret
+
+0000043a <__umulhisi3>:
+ 43a:	a2 9f       	mul	r26, r18
+ 43c:	b0 01       	movw	r22, r0
+ 43e:	b3 9f       	mul	r27, r19
+ 440:	c0 01       	movw	r24, r0
+ 442:	a3 9f       	mul	r26, r19
+ 444:	70 0d       	add	r23, r0
+ 446:	81 1d       	adc	r24, r1
+ 448:	11 24       	eor	r1, r1
+ 44a:	91 1d       	adc	r25, r1
+ 44c:	b2 9f       	mul	r27, r18
+ 44e:	70 0d       	add	r23, r0
+ 450:	81 1d       	adc	r24, r1
+ 452:	11 24       	eor	r1, r1
+ 454:	91 1d       	adc	r25, r1
+ 456:	08 95       	ret
+
+00000458 <do_rand>:
+ 458:	8f 92       	push	r8
+ 45a:	9f 92       	push	r9
+ 45c:	af 92       	push	r10
+ 45e:	bf 92       	push	r11
+ 460:	cf 92       	push	r12
+ 462:	df 92       	push	r13
+ 464:	ef 92       	push	r14
+ 466:	ff 92       	push	r15
+ 468:	cf 93       	push	r28
+ 46a:	df 93       	push	r29
+ 46c:	ec 01       	movw	r28, r24
+ 46e:	68 81       	ld	r22, Y
+ 470:	79 81       	ldd	r23, Y+1	; 0x01
+ 472:	8a 81       	ldd	r24, Y+2	; 0x02
+ 474:	9b 81       	ldd	r25, Y+3	; 0x03
+ 476:	61 15       	cp	r22, r1
+ 478:	71 05       	cpc	r23, r1
+ 47a:	81 05       	cpc	r24, r1
+ 47c:	91 05       	cpc	r25, r1
+ 47e:	21 f4       	brne	.+8      	; 0x488 <do_rand+0x30>
+ 480:	64 e2       	ldi	r22, 0x24	; 36
+ 482:	79 ed       	ldi	r23, 0xD9	; 217
+ 484:	8b e5       	ldi	r24, 0x5B	; 91
+ 486:	97 e0       	ldi	r25, 0x07	; 7
+ 488:	2d e1       	ldi	r18, 0x1D	; 29
+ 48a:	33 ef       	ldi	r19, 0xF3	; 243
+ 48c:	41 e0       	ldi	r20, 0x01	; 1
+ 48e:	50 e0       	ldi	r21, 0x00	; 0
+ 490:	0e 94 88 02 	call	0x510	; 0x510 <__divmodsi4>
+ 494:	49 01       	movw	r8, r18
+ 496:	5a 01       	movw	r10, r20
+ 498:	9b 01       	movw	r18, r22
+ 49a:	ac 01       	movw	r20, r24
+ 49c:	a7 ea       	ldi	r26, 0xA7	; 167
+ 49e:	b1 e4       	ldi	r27, 0x41	; 65
+ 4a0:	0e 94 fe 01 	call	0x3fc	; 0x3fc <__muluhisi3>
+ 4a4:	6b 01       	movw	r12, r22
+ 4a6:	7c 01       	movw	r14, r24
+ 4a8:	ac ee       	ldi	r26, 0xEC	; 236
+ 4aa:	b4 ef       	ldi	r27, 0xF4	; 244
+ 4ac:	a5 01       	movw	r20, r10
+ 4ae:	94 01       	movw	r18, r8
+ 4b0:	0e 94 aa 02 	call	0x554	; 0x554 <__mulohisi3>
+ 4b4:	dc 01       	movw	r26, r24
+ 4b6:	cb 01       	movw	r24, r22
+ 4b8:	8c 0d       	add	r24, r12
+ 4ba:	9d 1d       	adc	r25, r13
+ 4bc:	ae 1d       	adc	r26, r14
+ 4be:	bf 1d       	adc	r27, r15
+ 4c0:	b7 ff       	sbrs	r27, 7
+ 4c2:	03 c0       	rjmp	.+6      	; 0x4ca <do_rand+0x72>
+ 4c4:	01 97       	sbiw	r24, 0x01	; 1
+ 4c6:	a1 09       	sbc	r26, r1
+ 4c8:	b0 48       	sbci	r27, 0x80	; 128
+ 4ca:	88 83       	st	Y, r24
+ 4cc:	99 83       	std	Y+1, r25	; 0x01
+ 4ce:	aa 83       	std	Y+2, r26	; 0x02
+ 4d0:	bb 83       	std	Y+3, r27	; 0x03
+ 4d2:	9f 77       	andi	r25, 0x7F	; 127
+ 4d4:	df 91       	pop	r29
+ 4d6:	cf 91       	pop	r28
+ 4d8:	ff 90       	pop	r15
+ 4da:	ef 90       	pop	r14
+ 4dc:	df 90       	pop	r13
+ 4de:	cf 90       	pop	r12
+ 4e0:	bf 90       	pop	r11
+ 4e2:	af 90       	pop	r10
+ 4e4:	9f 90       	pop	r9
+ 4e6:	8f 90       	pop	r8
+ 4e8:	08 95       	ret
+
+000004ea <rand_r>:
+ 4ea:	0e 94 2c 02 	call	0x458	; 0x458 <do_rand>
+ 4ee:	08 95       	ret
+
+000004f0 <rand>:
+ 4f0:	80 e0       	ldi	r24, 0x00	; 0
+ 4f2:	91 e0       	ldi	r25, 0x01	; 1
+ 4f4:	0e 94 2c 02 	call	0x458	; 0x458 <do_rand>
+ 4f8:	08 95       	ret
+
+000004fa <srand>:
+ 4fa:	a0 e0       	ldi	r26, 0x00	; 0
+ 4fc:	b0 e0       	ldi	r27, 0x00	; 0
+ 4fe:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 502:	90 93 01 01 	sts	0x0101, r25	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
+ 506:	a0 93 02 01 	sts	0x0102, r26	; 0x800102 <__DATA_REGION_ORIGIN__+0x2>
+ 50a:	b0 93 03 01 	sts	0x0103, r27	; 0x800103 <__DATA_REGION_ORIGIN__+0x3>
+ 50e:	08 95       	ret
+
+00000510 <__divmodsi4>:
+ 510:	05 2e       	mov	r0, r21
+ 512:	97 fb       	bst	r25, 7
+ 514:	1e f4       	brtc	.+6      	; 0x51c <__divmodsi4+0xc>
+ 516:	00 94       	com	r0
+ 518:	0e 94 9f 02 	call	0x53e	; 0x53e <__negsi2>
+ 51c:	57 fd       	sbrc	r21, 7
+ 51e:	07 d0       	rcall	.+14     	; 0x52e <__divmodsi4_neg2>
+ 520:	0e 94 d6 01 	call	0x3ac	; 0x3ac <__udivmodsi4>
+ 524:	07 fc       	sbrc	r0, 7
+ 526:	03 d0       	rcall	.+6      	; 0x52e <__divmodsi4_neg2>
+ 528:	4e f4       	brtc	.+18     	; 0x53c <__divmodsi4_exit>
+ 52a:	0c 94 9f 02 	jmp	0x53e	; 0x53e <__negsi2>
+
+0000052e <__divmodsi4_neg2>:
+ 52e:	50 95       	com	r21
+ 530:	40 95       	com	r20
+ 532:	30 95       	com	r19
+ 534:	21 95       	neg	r18
+ 536:	3f 4f       	sbci	r19, 0xFF	; 255
+ 538:	4f 4f       	sbci	r20, 0xFF	; 255
+ 53a:	5f 4f       	sbci	r21, 0xFF	; 255
+
+0000053c <__divmodsi4_exit>:
+ 53c:	08 95       	ret
+
+0000053e <__negsi2>:
+ 53e:	90 95       	com	r25
+ 540:	80 95       	com	r24
+ 542:	70 95       	com	r23
+ 544:	61 95       	neg	r22
+ 546:	7f 4f       	sbci	r23, 0xFF	; 255
+ 548:	8f 4f       	sbci	r24, 0xFF	; 255
+ 54a:	9f 4f       	sbci	r25, 0xFF	; 255
+ 54c:	08 95       	ret
+
+0000054e <__mulshisi3>:
+ 54e:	b7 ff       	sbrs	r27, 7
+ 550:	0c 94 fe 01 	jmp	0x3fc	; 0x3fc <__muluhisi3>
+
+00000554 <__mulohisi3>:
+ 554:	0e 94 fe 01 	call	0x3fc	; 0x3fc <__muluhisi3>
+ 558:	82 1b       	sub	r24, r18
+ 55a:	93 0b       	sbc	r25, r19
+ 55c:	08 95       	ret
+
+0000055e <_exit>:
+ 55e:	f8 94       	cli
+
+00000560 <__stop_program>:
+ 560:	ff cf       	rjmp	.-2      	; 0x560 <__stop_program>
