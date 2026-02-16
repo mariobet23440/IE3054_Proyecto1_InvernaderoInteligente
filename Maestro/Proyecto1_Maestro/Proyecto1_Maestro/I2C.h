@@ -1,11 +1,16 @@
-/*
- * I2C.h
- *
- * Created: 5/02/2026 19:42:09
- * Author: Mario Alejandro Betancourt Franco
- *
- * Descripción: Librería para comunicación TWI/I2C en ATmega328P
- */ 
+/************************************************************************/
+/*	LIBRERÍA I2C (Ver 2.0) - H FILE
+	CREADA POR: Mario Alejandro Betancourt Franco (23440)
+				(Basada en la librería de Pablo Mazariegos)
+	DESCRIPCIÓN: Librería para comunicación I2C.
+	FUNCIONES DISPONIBLES:
+		- Inicialización de maestros y esclavos
+		- Generación de condiciones START, STOP y REPEATED_START
+		- Transmisión de datos desde maestro (Master Transmitter)
+		- Recepción de datos de maestro (Master Receiver)
+		
+	ÚLTIMA ACTUALIZACIÓN: 12/02/2026						            */
+/************************************************************************/
 
 #ifndef I2C_H_
 #define I2C_H_

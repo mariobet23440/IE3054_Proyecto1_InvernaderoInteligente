@@ -1,0 +1,6 @@
+#define CMD_QUERY_TEMP	0x30
+#define CMD_QUERY_HMDT	0x32
+#define CMD_QUERY_LIGHT	0x34
+#define CMD_DC_MOTOR	0x36
+#define CMD_STEPPER		0x38
+#define CMD_QUERY_TEMP	0x40

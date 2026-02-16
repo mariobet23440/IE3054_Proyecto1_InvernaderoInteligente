@@ -1,10 +1,17 @@
-/*
- * I2C.c
- * Completada y corregida
- */ 
-
-#include <avr/io.h>
-#include <stdint.h>
+/************************************************************************/
+/*	LIBRERÍA I2C (Ver 2.0) - C FILE
+	CREADA POR: Mario Alejandro Betancourt Franco (23440)
+				(Basada en la librería de Pablo Mazariegos)
+	DESCRIPCIÓN: Librería para comunicación I2C.
+	FUNCIONES DISPONIBLES:
+		- Inicialización de maestros y esclavos
+		- Generación de condiciones START, STOP y REPEATED_START
+		- Transmisión de datos desde maestro (Master Transmitter)
+		- Recepción de datos de maestro (Master Receiver)
+		
+	ÚLTIMA ACTUALIZACIÓN: 12/02/2026						            */
+/************************************************************************/
+#include "I2C.h"
 
 // Definir F_CPU si no está definido en el proyecto
 #ifndef F_CPU
@@ -56,11 +63,13 @@ uint8_t I2C_MasterRepeatedStart(void)
     // CORRECCIÓN: Se cambió el '1' por '|'
     TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
     
+	// Esperar hasta que se levante la bandera TWINT
     while (!(TWCR & (1 << TWINT)));
     
     // Verificar estado: 0x10 = Repeated START transmitido
     uint8_t status = (TWSR & 0xF8);
     
+	// Retornar variable booleana para indicar que se transmitió el START
     return (status == 0x10);
 }
 
@@ -73,7 +82,10 @@ void I2C_MasterStop(void)
     // NOTA: Para el STOP no se espera a TWINT, el hardware lo hace automáticamente
 }
 
+
 // Enviar dato desde maestro (Master Transmitter)
+// Esto puede ser la dirección del SLA + R/W
+// o un bit de datos
 uint8_t I2C_Master_Write(uint8_t dato)
 {   
     TWDR = dato;

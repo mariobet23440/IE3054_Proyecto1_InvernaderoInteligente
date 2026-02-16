@@ -1,3 +1,17 @@
+/************************************************************************/
+/*	LIBRERÍA HD44780 (Ver 2.0) - INCLUDE FILE
+	CREADA POR: Mario Alejandro Betancourt Franco (23440)
+	DESCRIPCIÓN: Librería para uC HD44780 para pantallas LCD
+				 Modo de 4 bits.
+	PARA UTILIZARLA: 
+			1. Definir la struct LCD_PIN en el código principal
+			2. Asignar direcciones de puertos, pines y ddrs
+			3. Inicializar con LCD_Init_4b
+			4. Colocar cursor con LCD_SetCursor
+			5. Escribir cadena de texto con LCD_WriteString.
+	ÚLTIMA ACTUALIZACIÓN: 12/02/2026						            */
+/************************************************************************/
+
 #ifndef HD44780_4B_H_
 #define HD44780_4B_H_
 

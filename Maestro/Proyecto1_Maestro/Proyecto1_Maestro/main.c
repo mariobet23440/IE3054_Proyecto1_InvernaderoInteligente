@@ -1,9 +1,14 @@
-/*
- * Proyecto1_Maestro.c
- *
- * Created: 10/02/2026 14:57:37
- * Author : mario
- */ 
+/************************************************************************/
+/*	PROYECTO 1 - MAESTRO
+	CREADA POR: Mario Alejandro Betancourt Franco (23440)
+	DESCRIPCIÓN: Programa para maestro de invernadero inteligente
+	RESUMEN DE FUNCIONAMIENTO DEL DISPOSITIVO:
+		- Se comunica con cada esclavo al que está conectado
+		- Mantiene comunicación con un ESP32 vía UART
+		- Controla la pantalla LCD.
+		
+	ÚLTIMA ACTUALIZACIÓN: 12/02/2026						            */
+/************************************************************************/
 
 #define F_CPU 16000000UL
 #include <avr/io.h>
@@ -121,4 +126,5 @@ int main(void)
 ISR(USART_RX_vect)
 {
 	uart_rx = UDR0;
+	PORTB ^= (1 << PORTB5); // TIP: Haz que el LED L parpadee al recibir datos
 }
