@@ -1,0 +1,8 @@
+TABLA DE COMANDOS
+ID EN CÓDIGO | Descripción | Valor
+CMD_DC	     | Encender motor DC | 'A'
+CMD_STEPPER	     | Encender motor STEPPER | 'B'
+CMD_SERVO1	     | Poner Servo en Posición Baja | 'C'
+CMD_SERVO2	     | Poner Servo en Posición Media | 'D'
+CMD_SERVO3	     | Poner Servo en Posición Alta | 'E'
+CMD_SERVOADJ	     | Ajustar posición del servomotor | 'G'

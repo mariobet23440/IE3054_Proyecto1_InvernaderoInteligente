@@ -1,4 +1,15 @@
-// Adafruit IO Publish & Subscribe Example
+/****************************************************************************
+  IE3054 - PROYECTO 1 - INVERNADERO INTELIGENTE (ESP32)
+  CÓDIGO ORIGINAL - Ejemplo 2 de AdafruitIO (adafruitio_02_pubsub)
+  ADAPTADO POR - David Carranza y Mario Betancourt
+  DESCRIPCIÓN - Este código conecta un ESP32 a una interfaz de AdafruitIO,
+                donde
+
+
+*****************************************************************************/
+
+// Adafruit IO Publish & Subscribe
+
 
 /************************** Configuration ***********************************/
 
