@@ -1,0 +1,414 @@
+
+Esclavo_Sensor_DC.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000010  00800100  000002b6  0000034a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000002b6  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000001  00800110  00800110  0000035a  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000035a  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000038c  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000f0  00000000  00000000  000003cc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000cc1  00000000  00000000  000004bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000953  00000000  00000000  0000117d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000076a  00000000  00000000  00001ad0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  0000016c  00000000  00000000  0000223c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000616  00000000  00000000  000023a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000001bf  00000000  00000000  000029be  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000000a0  00000000  00000000  00002b7d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   8:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  10:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  14:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  38:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  48:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  50:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	e6 eb       	ldi	r30, 0xB6	; 182
+  7c:	f2 e0       	ldi	r31, 0x02	; 2
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+  84:	a0 31       	cpi	r26, 0x10	; 16
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
+
+0000008a <__do_clear_bss>:
+  8a:	21 e0       	ldi	r18, 0x01	; 1
+  8c:	a0 e1       	ldi	r26, 0x10	; 16
+  8e:	b1 e0       	ldi	r27, 0x01	; 1
+  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+
+00000092 <.do_clear_bss_loop>:
+  92:	1d 92       	st	X+, r1
+
+00000094 <.do_clear_bss_start>:
+  94:	a1 31       	cpi	r26, 0x11	; 17
+  96:	b2 07       	cpc	r27, r18
+  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
+  9a:	0e 94 d6 00 	call	0x1ac	; 0x1ac <main>
+  9e:	0c 94 59 01 	jmp	0x2b2	; 0x2b2 <_exit>
+
+000000a2 <__bad_interrupt>:
+  a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a6 <ADC_Init>:
+  a6:	80 e4       	ldi	r24, 0x40	; 64
+  a8:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7f807c>
+  ac:	87 e8       	ldi	r24, 0x87	; 135
+  ae:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7f807a>
+  b2:	08 95       	ret
+
+000000b4 <ADC_Read>:
+  b4:	ec e7       	ldi	r30, 0x7C	; 124
+  b6:	f0 e0       	ldi	r31, 0x00	; 0
+  b8:	90 81       	ld	r25, Z
+  ba:	90 7f       	andi	r25, 0xF0	; 240
+  bc:	8f 70       	andi	r24, 0x0F	; 15
+  be:	89 2b       	or	r24, r25
+  c0:	80 83       	st	Z, r24
+  c2:	ea e7       	ldi	r30, 0x7A	; 122
+  c4:	f0 e0       	ldi	r31, 0x00	; 0
+  c6:	80 81       	ld	r24, Z
+  c8:	80 64       	ori	r24, 0x40	; 64
+  ca:	80 83       	st	Z, r24
+  cc:	80 91 7a 00 	lds	r24, 0x007A	; 0x80007a <__TEXT_REGION_LENGTH__+0x7f807a>
+  d0:	86 fd       	sbrc	r24, 6
+  d2:	fc cf       	rjmp	.-8      	; 0xcc <ADC_Read+0x18>
+  d4:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7f8078>
+  d8:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7f8079>
+  dc:	08 95       	ret
+
+000000de <DC_Init>:
+  de:	8a b1       	in	r24, 0x0a	; 10
+  e0:	80 6e       	ori	r24, 0xE0	; 224
+  e2:	8a b9       	out	0x0a, r24	; 10
+  e4:	83 e2       	ldi	r24, 0x23	; 35
+  e6:	80 93 b0 00 	sts	0x00B0, r24	; 0x8000b0 <__TEXT_REGION_LENGTH__+0x7f80b0>
+  ea:	82 e0       	ldi	r24, 0x02	; 2
+  ec:	80 93 b1 00 	sts	0x00B1, r24	; 0x8000b1 <__TEXT_REGION_LENGTH__+0x7f80b1>
+  f0:	10 92 b4 00 	sts	0x00B4, r1	; 0x8000b4 <__TEXT_REGION_LENGTH__+0x7f80b4>
+  f4:	08 95       	ret
+
+000000f6 <DC_On>:
+  f6:	8b b1       	in	r24, 0x0b	; 11
+  f8:	80 62       	ori	r24, 0x20	; 32
+  fa:	8b b9       	out	0x0b, r24	; 11
+  fc:	8b b1       	in	r24, 0x0b	; 11
+  fe:	8f 7b       	andi	r24, 0xBF	; 191
+ 100:	8b b9       	out	0x0b, r24	; 11
+ 102:	88 ec       	ldi	r24, 0xC8	; 200
+ 104:	80 93 b4 00 	sts	0x00B4, r24	; 0x8000b4 <__TEXT_REGION_LENGTH__+0x7f80b4>
+ 108:	08 95       	ret
+
+0000010a <DC_Off>:
+ 10a:	10 92 b4 00 	sts	0x00B4, r1	; 0x8000b4 <__TEXT_REGION_LENGTH__+0x7f80b4>
+ 10e:	08 95       	ret
+
+00000110 <DC_SetSpeed>:
+ 110:	80 93 b4 00 	sts	0x00B4, r24	; 0x8000b4 <__TEXT_REGION_LENGTH__+0x7f80b4>
+ 114:	08 95       	ret
+
+00000116 <I2C_Slave_Init>:
+ 116:	88 0f       	add	r24, r24
+ 118:	80 93 ba 00 	sts	0x00BA, r24	; 0x8000ba <__TEXT_REGION_LENGTH__+0x7f80ba>
+ 11c:	84 ec       	ldi	r24, 0xC4	; 196
+ 11e:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 122:	08 95       	ret
+
+00000124 <I2C_Slave_CheckCommand>:
+ 124:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 128:	88 23       	and	r24, r24
+ 12a:	f4 f5       	brge	.+124    	; 0x1a8 <I2C_Slave_CheckCommand+0x84>
+ 12c:	80 91 b9 00 	lds	r24, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+ 130:	88 7f       	andi	r24, 0xF8	; 248
+ 132:	80 3a       	cpi	r24, 0xA0	; 160
+ 134:	c1 f0       	breq	.+48     	; 0x166 <I2C_Slave_CheckCommand+0x42>
+ 136:	28 f4       	brcc	.+10     	; 0x142 <I2C_Slave_CheckCommand+0x1e>
+ 138:	80 36       	cpi	r24, 0x60	; 96
+ 13a:	51 f0       	breq	.+20     	; 0x150 <I2C_Slave_CheckCommand+0x2c>
+ 13c:	80 38       	cpi	r24, 0x80	; 128
+ 13e:	69 f0       	breq	.+26     	; 0x15a <I2C_Slave_CheckCommand+0x36>
+ 140:	2e c0       	rjmp	.+92     	; 0x19e <I2C_Slave_CheckCommand+0x7a>
+ 142:	88 3b       	cpi	r24, 0xB8	; 184
+ 144:	f1 f0       	breq	.+60     	; 0x182 <I2C_Slave_CheckCommand+0x5e>
+ 146:	80 3c       	cpi	r24, 0xC0	; 192
+ 148:	29 f1       	breq	.+74     	; 0x194 <I2C_Slave_CheckCommand+0x70>
+ 14a:	88 3a       	cpi	r24, 0xA8	; 168
+ 14c:	41 f5       	brne	.+80     	; 0x19e <I2C_Slave_CheckCommand+0x7a>
+ 14e:	10 c0       	rjmp	.+32     	; 0x170 <I2C_Slave_CheckCommand+0x4c>
+ 150:	84 ec       	ldi	r24, 0xC4	; 196
+ 152:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 156:	8f ef       	ldi	r24, 0xFF	; 255
+ 158:	08 95       	ret
+ 15a:	80 91 bb 00 	lds	r24, 0x00BB	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+ 15e:	94 ec       	ldi	r25, 0xC4	; 196
+ 160:	90 93 bc 00 	sts	0x00BC, r25	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 164:	08 95       	ret
+ 166:	84 ec       	ldi	r24, 0xC4	; 196
+ 168:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 16c:	8f ef       	ldi	r24, 0xFF	; 255
+ 16e:	08 95       	ret
+ 170:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <__data_end>
+ 174:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+ 178:	84 ec       	ldi	r24, 0xC4	; 196
+ 17a:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 17e:	8f ef       	ldi	r24, 0xFF	; 255
+ 180:	08 95       	ret
+ 182:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <__data_end>
+ 186:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+ 18a:	84 ec       	ldi	r24, 0xC4	; 196
+ 18c:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 190:	8f ef       	ldi	r24, 0xFF	; 255
+ 192:	08 95       	ret
+ 194:	84 ec       	ldi	r24, 0xC4	; 196
+ 196:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 19a:	8f ef       	ldi	r24, 0xFF	; 255
+ 19c:	08 95       	ret
+ 19e:	84 ec       	ldi	r24, 0xC4	; 196
+ 1a0:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 1a4:	8f ef       	ldi	r24, 0xFF	; 255
+ 1a6:	08 95       	ret
+ 1a8:	8f ef       	ldi	r24, 0xFF	; 255
+ 1aa:	08 95       	ret
+
+000001ac <main>:
+	
+	//uint16_t soil_value;
+	uint8_t command; 
+	
+	// Inicializadores
+	UART_Init(UART_BAUD_9600_16MHZ, UART_INTERRUPTS_DISABLED);
+ 1ac:	60 e0       	ldi	r22, 0x00	; 0
+ 1ae:	80 ed       	ldi	r24, 0xD0	; 208
+ 1b0:	90 e0       	ldi	r25, 0x00	; 0
+ 1b2:	0e 94 1e 01 	call	0x23c	; 0x23c <UART_Init>
+	UART_SendString("Sensor listo\r\n");
+ 1b6:	80 e0       	ldi	r24, 0x00	; 0
+ 1b8:	91 e0       	ldi	r25, 0x01	; 1
+ 1ba:	0e 94 4c 01 	call	0x298	; 0x298 <UART_SendString>
+	I2C_Slave_Init(SLAVE_ADDR);
+ 1be:	81 e3       	ldi	r24, 0x31	; 49
+ 1c0:	0e 94 8b 00 	call	0x116	; 0x116 <I2C_Slave_Init>
+	ADC_Init();
+ 1c4:	0e 94 53 00 	call	0xa6	; 0xa6 <ADC_Init>
+	DC_Init();
+ 1c8:	0e 94 6f 00 	call	0xde	; 0xde <DC_Init>
+	
+	// Configuración de pin de alimentación del sensor
+	DDRB |= (1 << SOIL_POWER_PIN);
+ 1cc:	84 b1       	in	r24, 0x04	; 4
+ 1ce:	81 60       	ori	r24, 0x01	; 1
+ 1d0:	84 b9       	out	0x04, r24	; 4
+	PORTB &= ~(1 << SOIL_POWER_PIN);	// Apagado inicialmente
+ 1d2:	85 b1       	in	r24, 0x05	; 5
+ 1d4:	8e 7f       	andi	r24, 0xFE	; 254
+ 1d6:	85 b9       	out	0x05, r24	; 5
+	
+
+	
+	while(1)
+	{
+		command = I2C_Slave_CheckCommand();
+ 1d8:	0e 94 92 00 	call	0x124	; 0x124 <I2C_Slave_CheckCommand>
+		
+		if (command != 0xFF)
+ 1dc:	8f 3f       	cpi	r24, 0xFF	; 255
+ 1de:	e1 f3       	breq	.-8      	; 0x1d8 <main+0x2c>
+		
+		{
+			switch(command)
+ 1e0:	81 34       	cpi	r24, 0x41	; 65
+ 1e2:	c9 f0       	breq	.+50     	; 0x216 <main+0x6a>
+ 1e4:	18 f4       	brcc	.+6      	; 0x1ec <main+0x40>
+ 1e6:	80 34       	cpi	r24, 0x40	; 64
+ 1e8:	31 f0       	breq	.+12     	; 0x1f6 <main+0x4a>
+ 1ea:	f6 cf       	rjmp	.-20     	; 0x1d8 <main+0x2c>
+ 1ec:	82 34       	cpi	r24, 0x42	; 66
+ 1ee:	b1 f0       	breq	.+44     	; 0x21c <main+0x70>
+ 1f0:	83 34       	cpi	r24, 0x43	; 67
+ 1f2:	b9 f0       	breq	.+46     	; 0x222 <main+0x76>
+ 1f4:	f1 cf       	rjmp	.-30     	; 0x1d8 <main+0x2c>
+				case CMD_READ_SOIL:
+				{
+					uint16_t soil_value;
+					
+					 // Encender sensor
+					 PORTB |= (1 << SOIL_POWER_PIN);
+ 1f6:	85 b1       	in	r24, 0x05	; 5
+ 1f8:	81 60       	ori	r24, 0x01	; 1
+ 1fa:	85 b9       	out	0x05, r24	; 5
+					 //_delay_ms(50);		// Estabilizar lectura
+			 
+					 soil_value = ADC_Read(0);	// A0
+ 1fc:	80 e0       	ldi	r24, 0x00	; 0
+ 1fe:	0e 94 5a 00 	call	0xb4	; 0xb4 <ADC_Read>
+					 
+					 // Apagar sensor
+					 PORTB &= ~(1 << SOIL_POWER_PIN);
+ 202:	25 b1       	in	r18, 0x05	; 5
+ 204:	2e 7f       	andi	r18, 0xFE	; 254
+ 206:	25 b9       	out	0x05, r18	; 5
+			 
+					 // Convertir a 8 bits para I2C
+					 uint8_t soil_8bit = soil_value >> 2;
+ 208:	96 95       	lsr	r25
+ 20a:	87 95       	ror	r24
+ 20c:	96 95       	lsr	r25
+ 20e:	87 95       	ror	r24
+			 
+					 // Preparar respuesta
+					 tx_data = soil_8bit;
+ 210:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <__data_end>
+					 
+				}
+				break;
+ 214:	e1 cf       	rjmp	.-62     	; 0x1d8 <main+0x2c>
+				
+				case CMD_FAN_ON:
+					DC_On();
+ 216:	0e 94 7b 00 	call	0xf6	; 0xf6 <DC_On>
+					break;
+ 21a:	de cf       	rjmp	.-68     	; 0x1d8 <main+0x2c>
+					
+				case CMD_FAN_OFF:
+					DC_Off();
+ 21c:	0e 94 85 00 	call	0x10a	; 0x10a <DC_Off>
+					break;
+ 220:	db cf       	rjmp	.-74     	; 0x1d8 <main+0x2c>
+				case CMD_FAN_PWM:
+				// El esclavo debe esperar el siguiente byte que contiene la velocidad
+				// Función para leer el dato que viene después del comando
+				{
+					// Esperar siguiente dato
+					while((TWSR & 0xF8) != 0x80);
+ 222:	80 91 b9 00 	lds	r24, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+ 226:	88 7f       	andi	r24, 0xF8	; 248
+ 228:	80 38       	cpi	r24, 0x80	; 128
+ 22a:	d9 f7       	brne	.-10     	; 0x222 <main+0x76>
+					uint8_t speed = TWDR;
+ 22c:	80 91 bb 00 	lds	r24, 0x00BB	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+
+					TWCR = (1<<TWEN)|(1<<TWEA)|(1<<TWINT);
+ 230:	94 ec       	ldi	r25, 0xC4	; 196
+ 232:	90 93 bc 00 	sts	0x00BC, r25	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+
+					DC_SetSpeed(speed);
+ 236:	0e 94 88 00 	call	0x110	; 0x110 <DC_SetSpeed>
+				}
+				break;
+ 23a:	ce cf       	rjmp	.-100    	; 0x1d8 <main+0x2c>
+
+0000023c <UART_Init>:
+ 23c:	cf 93       	push	r28
+ 23e:	df 93       	push	r29
+ 240:	9c 01       	movw	r18, r24
+ 242:	9a b1       	in	r25, 0x0a	; 10
+ 244:	92 60       	ori	r25, 0x02	; 2
+ 246:	9a b9       	out	0x0a, r25	; 10
+ 248:	9a b1       	in	r25, 0x0a	; 10
+ 24a:	9e 7f       	andi	r25, 0xFE	; 254
+ 24c:	9a b9       	out	0x0a, r25	; 10
+ 24e:	e0 ec       	ldi	r30, 0xC0	; 192
+ 250:	f0 e0       	ldi	r31, 0x00	; 0
+ 252:	10 82       	st	Z, r1
+ 254:	a1 ec       	ldi	r26, 0xC1	; 193
+ 256:	b0 e0       	ldi	r27, 0x00	; 0
+ 258:	1c 92       	st	X, r1
+ 25a:	c2 ec       	ldi	r28, 0xC2	; 194
+ 25c:	d0 e0       	ldi	r29, 0x00	; 0
+ 25e:	18 82       	st	Y, r1
+ 260:	90 81       	ld	r25, Z
+ 262:	92 60       	ori	r25, 0x02	; 2
+ 264:	90 83       	st	Z, r25
+ 266:	30 93 c5 00 	sts	0x00C5, r19	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+ 26a:	20 93 c4 00 	sts	0x00C4, r18	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+ 26e:	86 e0       	ldi	r24, 0x06	; 6
+ 270:	88 83       	st	Y, r24
+ 272:	88 e1       	ldi	r24, 0x18	; 24
+ 274:	8c 93       	st	X, r24
+ 276:	61 30       	cpi	r22, 0x01	; 1
+ 278:	29 f4       	brne	.+10     	; 0x284 <UART_Init+0x48>
+ 27a:	e1 ec       	ldi	r30, 0xC1	; 193
+ 27c:	f0 e0       	ldi	r31, 0x00	; 0
+ 27e:	80 81       	ld	r24, Z
+ 280:	80 68       	ori	r24, 0x80	; 128
+ 282:	80 83       	st	Z, r24
+ 284:	df 91       	pop	r29
+ 286:	cf 91       	pop	r28
+ 288:	08 95       	ret
+
+0000028a <UART_SendChar>:
+ 28a:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 28e:	95 ff       	sbrs	r25, 5
+ 290:	fc cf       	rjmp	.-8      	; 0x28a <UART_SendChar>
+ 292:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 296:	08 95       	ret
+
+00000298 <UART_SendString>:
+ 298:	cf 93       	push	r28
+ 29a:	df 93       	push	r29
+ 29c:	ec 01       	movw	r28, r24
+ 29e:	03 c0       	rjmp	.+6      	; 0x2a6 <UART_SendString+0xe>
+ 2a0:	21 96       	adiw	r28, 0x01	; 1
+ 2a2:	0e 94 45 01 	call	0x28a	; 0x28a <UART_SendChar>
+ 2a6:	88 81       	ld	r24, Y
+ 2a8:	81 11       	cpse	r24, r1
+ 2aa:	fa cf       	rjmp	.-12     	; 0x2a0 <UART_SendString+0x8>
+ 2ac:	df 91       	pop	r29
+ 2ae:	cf 91       	pop	r28
+ 2b0:	08 95       	ret
+
+000002b2 <_exit>:
+ 2b2:	f8 94       	cli
+
+000002b4 <__stop_program>:
+ 2b4:	ff cf       	rjmp	.-2      	; 0x2b4 <__stop_program>

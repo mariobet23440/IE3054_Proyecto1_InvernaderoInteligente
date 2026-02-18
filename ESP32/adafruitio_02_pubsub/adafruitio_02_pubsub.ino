@@ -56,19 +56,58 @@ void setup() {
   Serial.println(io.statusText());
 }
 
+// ... (Mantén tus includes y definiciones de feeds iguales)
+
 void loop() {
-  // io.run debe estar en loop para sostener conexión.
+  // Mantener la conexión con Adafruit IO
   io.run();
 
-  // Aplicar delay
+  // Realizar la lectura y envío cada 10 segundos (definido por IO_LOOP_DELAY)
   if (millis() > (lastUpdate + IO_LOOP_DELAY)) {
-    // Solicitar datos al maestro
-    //Serial2.print('Q'); // El valor recibido en el serial 2 debería ser el valor de humedad
+    
+    // --- 1. SOLICITAR Y ENVIAR HUMEDAD ---
+    Serial2.println("Q"); // Comando para humedad en el Maestro
+    delay(100); 
+    if (Serial2.available()) {
+      String response = Serial2.readStringUntil('\n');
+      int value = extractNumber(response);
+      Serial.print("Enviando Humedad: "); Serial.println(value);
+      humedadFeed->save(value);
+    }
 
-    // Actualizar contador
+    // --- 2. SOLICITAR Y ENVIAR LUZ ---
+    Serial2.println("L"); // Comando para luz en el Maestro
+    delay(100);
+    if (Serial2.available()) {
+      String response = Serial2.readStringUntil('\n');
+      int value = extractNumber(response);
+      Serial.print("Enviando Luz: "); Serial.println(value);
+      luzFeed->save(value);
+    }
+
+    // --- 3. TEMPERATURA (Placeholder) ---
+    // Nota: Tu main.c aún no tiene un comando 'T' para temperatura.
+    // Si lo agregas, aquí seguirías la misma lógica.
+
     lastUpdate = millis();
   }
 }
+
+/**
+ * Función auxiliar para extraer solo los números de una cadena
+ * Ejemplo: "Soil Hum: 150" -> devuelve 150
+ */
+int extractNumber(String str) {
+  String result = "";
+  for (int i = 0; i < str.length(); i++) {
+    if (isDigit(str[i])) {
+      result += str[i];
+    }
+  }
+  return result.length() > 0 ? result.toInt() : 0;
+}
+
+// ... (Mantén tus handlers de motores y servos igual)
 
 /****************************************************************/
 // Message Handlers
