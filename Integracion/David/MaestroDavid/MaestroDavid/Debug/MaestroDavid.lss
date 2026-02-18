@@ -3,31 +3,31 @@ MaestroDavid.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         000000d4  00800100  00000f72  00001006  2**0
+  0 .data         000000e8  00800100  00000f72  00001006  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   1 .text         00000f72  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000024  008001d4  008001d4  000010da  2**0
+  2 .bss          00000024  008001e8  008001e8  000010ee  2**0
                   ALLOC
-  3 .comment      0000005c  00000000  00000000  000010da  2**0
+  3 .comment      0000005c  00000000  00000000  000010ee  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00001138  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000114c  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000140  00000000  00000000  00001178  2**0
+  5 .debug_aranges 00000140  00000000  00000000  0000118c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001bd4  00000000  00000000  000012b8  2**0
+  6 .debug_info   00001bfc  00000000  00000000  000012cc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000bbe  00000000  00000000  00002e8c  2**0
+  7 .debug_abbrev 00000bbe  00000000  00000000  00002ec8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000bfa  00000000  00000000  00003a4a  2**0
+  8 .debug_line   00000c06  00000000  00000000  00003a86  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000030c  00000000  00000000  00004644  2**2
+  9 .debug_frame  0000030c  00000000  00000000  0000468c  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000745  00000000  00000000  00004950  2**0
+ 10 .debug_str    00000745  00000000  00000000  00004998  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000d08  00000000  00000000  00005095  2**0
+ 11 .debug_loc    00000d08  00000000  00000000  000050dd  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000100  00000000  00000000  00005d9d  2**0
+ 12 .debug_ranges 00000100  00000000  00000000  00005de5  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -77,13 +77,13 @@ Disassembly of section .text:
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
   82:	0d 92       	st	X+, r0
-  84:	a4 3d       	cpi	r26, 0xD4	; 212
+  84:	a8 3e       	cpi	r26, 0xE8	; 232
   86:	b1 07       	cpc	r27, r17
   88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
 
 0000008a <__do_clear_bss>:
-  8a:	21 e0       	ldi	r18, 0x01	; 1
-  8c:	a4 ed       	ldi	r26, 0xD4	; 212
+  8a:	22 e0       	ldi	r18, 0x02	; 2
+  8c:	a8 ee       	ldi	r26, 0xE8	; 232
   8e:	b1 e0       	ldi	r27, 0x01	; 1
   90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
 
@@ -91,7 +91,7 @@ Disassembly of section .text:
   92:	1d 92       	st	X+, r1
 
 00000094 <.do_clear_bss_start>:
-  94:	a8 3f       	cpi	r26, 0xF8	; 248
+  94:	ac 30       	cpi	r26, 0x0C	; 12
   96:	b2 07       	cpc	r27, r18
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
   9a:	0e 94 9b 03 	call	0x736	; 0x736 <main>
@@ -950,31 +950,31 @@ ISR(USART_RX_vect)
  4b4:	61 f4       	brne	.+24     	; 0x4ce <__vector_18+0x36>
 	{
 		rx_buffer[rx_index] = '\0';
- 4b6:	e0 91 d7 01 	lds	r30, 0x01D7	; 0x8001d7 <rx_index>
+ 4b6:	e0 91 eb 01 	lds	r30, 0x01EB	; 0x8001eb <rx_index>
  4ba:	f0 e0       	ldi	r31, 0x00	; 0
- 4bc:	e8 52       	subi	r30, 0x28	; 40
+ 4bc:	e4 51       	subi	r30, 0x14	; 20
  4be:	fe 4f       	sbci	r31, 0xFE	; 254
  4c0:	10 82       	st	Z, r1
 		command_ready = 1;
  4c2:	81 e0       	ldi	r24, 0x01	; 1
- 4c4:	80 93 d6 01 	sts	0x01D6, r24	; 0x8001d6 <command_ready>
+ 4c4:	80 93 ea 01 	sts	0x01EA, r24	; 0x8001ea <command_ready>
 		rx_index = 0;
- 4c8:	10 92 d7 01 	sts	0x01D7, r1	; 0x8001d7 <rx_index>
+ 4c8:	10 92 eb 01 	sts	0x01EB, r1	; 0x8001eb <rx_index>
  4cc:	0e c0       	rjmp	.+28     	; 0x4ea <__vector_18+0x52>
 	}
 	else
 	{
 		if(rx_index < RX_BUFFER_SIZE - 1)
- 4ce:	90 91 d7 01 	lds	r25, 0x01D7	; 0x8001d7 <rx_index>
+ 4ce:	90 91 eb 01 	lds	r25, 0x01EB	; 0x8001eb <rx_index>
  4d2:	9f 31       	cpi	r25, 0x1F	; 31
  4d4:	50 f4       	brcc	.+20     	; 0x4ea <__vector_18+0x52>
 		rx_buffer[rx_index++] = c;
- 4d6:	e0 91 d7 01 	lds	r30, 0x01D7	; 0x8001d7 <rx_index>
+ 4d6:	e0 91 eb 01 	lds	r30, 0x01EB	; 0x8001eb <rx_index>
  4da:	91 e0       	ldi	r25, 0x01	; 1
  4dc:	9e 0f       	add	r25, r30
- 4de:	90 93 d7 01 	sts	0x01D7, r25	; 0x8001d7 <rx_index>
+ 4de:	90 93 eb 01 	sts	0x01EB, r25	; 0x8001eb <rx_index>
  4e2:	f0 e0       	ldi	r31, 0x00	; 0
- 4e4:	e8 52       	subi	r30, 0x28	; 40
+ 4e4:	e4 51       	subi	r30, 0x14	; 20
  4e6:	fe 4f       	sbci	r31, 0xFE	; 254
  4e8:	80 83       	st	Z, r24
 	}
@@ -990,9 +990,9 @@ ISR(USART_RX_vect)
  4fa:	18 95       	reti
 
 000004fc <I2C_SendCommand>:
-		UART_SendString(buffer);
+		UART_SendString("Comando invalido\r\n");
+		break;
 	}
-
 }
 
 void I2C_SendCommand(uint8_t slave_addr, uint8_t command) {
@@ -1108,250 +1108,263 @@ void Process_Command(void)
  59e:	de bf       	out	0x3e, r29	; 62
  5a0:	0f be       	out	0x3f, r0	; 63
  5a2:	cd bf       	out	0x3d, r28	; 61
-	// S0 -> Servo cerrar
-	// Q  -> Sensor humedad suelo
-	// L  -> Sensor luz ambiente
-	
-	// -- CONSULTAR HUMEDAD DE SUELO ('Q') --
-	if(rx_buffer[0] == 'Q')
- 5a4:	80 91 d8 01 	lds	r24, 0x01D8	; 0x8001d8 <rx_buffer>
+	// El primer carácter define la categoría del comando
+	switch (rx_buffer[0])
+ 5a4:	80 91 ec 01 	lds	r24, 0x01EC	; 0x8001ec <rx_buffer>
  5a8:	81 35       	cpi	r24, 0x51	; 81
- 5aa:	e9 f5       	brne	.+122    	; 0x626 <Process_Command+0x9e>
+ 5aa:	79 f0       	breq	.+30     	; 0x5ca <Process_Command+0x42>
+ 5ac:	38 f4       	brcc	.+14     	; 0x5bc <Process_Command+0x34>
+ 5ae:	86 34       	cpi	r24, 0x46	; 70
+ 5b0:	09 f4       	brne	.+2      	; 0x5b4 <Process_Command+0x2c>
+ 5b2:	7a c0       	rjmp	.+244    	; 0x6a8 <Process_Command+0x120>
+ 5b4:	80 35       	cpi	r24, 0x50	; 80
+ 5b6:	09 f4       	brne	.+2      	; 0x5ba <Process_Command+0x32>
+ 5b8:	45 c0       	rjmp	.+138    	; 0x644 <Process_Command+0xbc>
+ 5ba:	ac c0       	rjmp	.+344    	; 0x714 <Process_Command+0x18c>
+ 5bc:	83 35       	cpi	r24, 0x53	; 83
+ 5be:	09 f4       	brne	.+2      	; 0x5c2 <Process_Command+0x3a>
+ 5c0:	5a c0       	rjmp	.+180    	; 0x676 <Process_Command+0xee>
+ 5c2:	86 35       	cpi	r24, 0x56	; 86
+ 5c4:	09 f4       	brne	.+2      	; 0x5c8 <Process_Command+0x40>
+ 5c6:	87 c0       	rjmp	.+270    	; 0x6d6 <Process_Command+0x14e>
+ 5c8:	a5 c0       	rjmp	.+330    	; 0x714 <Process_Command+0x18c>
 	{
-		// Lectura de humedad de suelo (Byte)
-		uint8_t soil = Read_Soil();
- 5ac:	0e 94 a3 02 	call	0x546	; 0x546 <Read_Soil>
- 5b0:	28 2f       	mov	r18, r24
+		// -- CONSULTAR HUMEDAD DE SUELO ('Q') --
+		case 'Q':
+		{
+			uint8_t soil = Read_Soil();
+ 5ca:	0e 94 a3 02 	call	0x546	; 0x546 <Read_Soil>
+ 5ce:	28 2f       	mov	r18, r24
+			uint8_t percentage;
+			
+			// Lógica de mapeo de humedad
+			if(soil >= SOIL_RAW_DRY) percentage = 0;
+ 5d0:	8f 3f       	cpi	r24, 0xFF	; 255
+ 5d2:	91 f0       	breq	.+36     	; 0x5f8 <Process_Command+0x70>
+			else if(soil <= SOIL_RAW_WET) percentage = 100;
+ 5d4:	81 3a       	cpi	r24, 0xA1	; 161
+ 5d6:	90 f0       	brcs	.+36     	; 0x5fc <Process_Command+0x74>
+			else percentage = 100 - ((soil - SOIL_RAW_WET) * 100) / (SOIL_RAW_DRY - SOIL_RAW_WET);
+ 5d8:	48 2f       	mov	r20, r24
+ 5da:	50 e0       	ldi	r21, 0x00	; 0
+ 5dc:	40 5a       	subi	r20, 0xA0	; 160
+ 5de:	51 09       	sbc	r21, r1
+ 5e0:	14 e6       	ldi	r17, 0x64	; 100
+ 5e2:	14 9f       	mul	r17, r20
+ 5e4:	c0 01       	movw	r24, r0
+ 5e6:	15 9f       	mul	r17, r21
+ 5e8:	90 0d       	add	r25, r0
+ 5ea:	11 24       	eor	r1, r1
+ 5ec:	6f e5       	ldi	r22, 0x5F	; 95
+ 5ee:	70 e0       	ldi	r23, 0x00	; 0
+ 5f0:	0e 94 5d 04 	call	0x8ba	; 0x8ba <__divmodhi4>
+ 5f4:	16 1b       	sub	r17, r22
+ 5f6:	03 c0       	rjmp	.+6      	; 0x5fe <Process_Command+0x76>
+		{
+			uint8_t soil = Read_Soil();
+			uint8_t percentage;
+			
+			// Lógica de mapeo de humedad
+			if(soil >= SOIL_RAW_DRY) percentage = 0;
+ 5f8:	10 e0       	ldi	r17, 0x00	; 0
+ 5fa:	01 c0       	rjmp	.+2      	; 0x5fe <Process_Command+0x76>
+			else if(soil <= SOIL_RAW_WET) percentage = 100;
+ 5fc:	14 e6       	ldi	r17, 0x64	; 100
+			else percentage = 100 - ((soil - SOIL_RAW_WET) * 100) / (SOIL_RAW_DRY - SOIL_RAW_WET);
+			
+			char buffer[40];
+			sprintf(buffer, "Soil: %d (%d%%)\r\n", soil, percentage);
+ 5fe:	1f 92       	push	r1
+ 600:	1f 93       	push	r17
+ 602:	1f 92       	push	r1
+ 604:	2f 93       	push	r18
+ 606:	8e e1       	ldi	r24, 0x1E	; 30
+ 608:	91 e0       	ldi	r25, 0x01	; 1
+ 60a:	9f 93       	push	r25
+ 60c:	8f 93       	push	r24
+ 60e:	ce 01       	movw	r24, r28
+ 610:	01 96       	adiw	r24, 0x01	; 1
+ 612:	7c 01       	movw	r14, r24
+ 614:	9f 93       	push	r25
+ 616:	8f 93       	push	r24
+ 618:	0e 94 cd 04 	call	0x99a	; 0x99a <sprintf>
+			UART_SendString(buffer);
+ 61c:	c7 01       	movw	r24, r14
+ 61e:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
 
-		// Cálculo de porcentaje relativo de humedad
-		uint8_t percentage;
-		
-		// Truncamiento de valor y cálculo en región de sensado
-		if(soil >= SOIL_RAW_DRY) percentage = 0;
- 5b2:	8f 3f       	cpi	r24, 0xFF	; 255
- 5b4:	91 f0       	breq	.+36     	; 0x5da <Process_Command+0x52>
-		else if(soil <= SOIL_RAW_WET) percentage = 100;
- 5b6:	81 3a       	cpi	r24, 0xA1	; 161
- 5b8:	90 f0       	brcs	.+36     	; 0x5de <Process_Command+0x56>
-		else percentage = 100 - ((soil - SOIL_RAW_WET) * 100) / (SOIL_RAW_DRY - SOIL_RAW_WET);
- 5ba:	48 2f       	mov	r20, r24
- 5bc:	50 e0       	ldi	r21, 0x00	; 0
- 5be:	40 5a       	subi	r20, 0xA0	; 160
- 5c0:	51 09       	sbc	r21, r1
- 5c2:	14 e6       	ldi	r17, 0x64	; 100
- 5c4:	14 9f       	mul	r17, r20
- 5c6:	c0 01       	movw	r24, r0
- 5c8:	15 9f       	mul	r17, r21
- 5ca:	90 0d       	add	r25, r0
- 5cc:	11 24       	eor	r1, r1
- 5ce:	6f e5       	ldi	r22, 0x5F	; 95
- 5d0:	70 e0       	ldi	r23, 0x00	; 0
- 5d2:	0e 94 5d 04 	call	0x8ba	; 0x8ba <__divmodhi4>
- 5d6:	16 1b       	sub	r17, r22
- 5d8:	03 c0       	rjmp	.+6      	; 0x5e0 <Process_Command+0x58>
-
-		// Cálculo de porcentaje relativo de humedad
-		uint8_t percentage;
-		
-		// Truncamiento de valor y cálculo en región de sensado
-		if(soil >= SOIL_RAW_DRY) percentage = 0;
- 5da:	10 e0       	ldi	r17, 0x00	; 0
- 5dc:	01 c0       	rjmp	.+2      	; 0x5e0 <Process_Command+0x58>
-		else if(soil <= SOIL_RAW_WET) percentage = 100;
- 5de:	14 e6       	ldi	r17, 0x64	; 100
-		else percentage = 100 - ((soil - SOIL_RAW_WET) * 100) / (SOIL_RAW_DRY - SOIL_RAW_WET);
-		
-		// LOGS SERIALES (Eliminar en implementación)
-		char buffer[40];
-		sprintf(buffer, "Soil: %d (%d%%)\r\n", soil, percentage);
- 5e0:	1f 92       	push	r1
- 5e2:	1f 93       	push	r17
- 5e4:	1f 92       	push	r1
- 5e6:	2f 93       	push	r18
- 5e8:	8e e1       	ldi	r24, 0x1E	; 30
- 5ea:	91 e0       	ldi	r25, 0x01	; 1
- 5ec:	9f 93       	push	r25
- 5ee:	8f 93       	push	r24
- 5f0:	ce 01       	movw	r24, r28
- 5f2:	01 96       	adiw	r24, 0x01	; 1
- 5f4:	7c 01       	movw	r14, r24
- 5f6:	9f 93       	push	r25
- 5f8:	8f 93       	push	r24
- 5fa:	0e 94 cd 04 	call	0x99a	; 0x99a <sprintf>
-		UART_SendString(buffer);
- 5fe:	c7 01       	movw	r24, r14
- 600:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
-
-		if(percentage > 40) UART_SendString("No necesita agua\r\n");
- 604:	0f b6       	in	r0, 0x3f	; 63
- 606:	f8 94       	cli
- 608:	de bf       	out	0x3e, r29	; 62
- 60a:	0f be       	out	0x3f, r0	; 63
- 60c:	cd bf       	out	0x3d, r28	; 61
- 60e:	19 32       	cpi	r17, 0x29	; 41
- 610:	28 f0       	brcs	.+10     	; 0x61c <Process_Command+0x94>
- 612:	80 e3       	ldi	r24, 0x30	; 48
- 614:	91 e0       	ldi	r25, 0x01	; 1
- 616:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
- 61a:	80 c0       	rjmp	.+256    	; 0x71c <Process_Command+0x194>
-		else UART_SendString("Necesita agua\r\n");
- 61c:	83 e4       	ldi	r24, 0x43	; 67
- 61e:	91 e0       	ldi	r25, 0x01	; 1
- 620:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
- 624:	7b c0       	rjmp	.+246    	; 0x71c <Process_Command+0x194>
-	// 		sprintf(buffer, "Luminosidad: %u lux\r\n", lux);
-	// 		UART_SendString(buffer);
-	// 	}
-	
-	// -- MOTOR STEPPER : BOMBA DE RIEGO --
-	else if(rx_buffer[0] == 'P')
- 626:	80 91 d8 01 	lds	r24, 0x01D8	; 0x8001d8 <rx_buffer>
- 62a:	80 35       	cpi	r24, 0x50	; 80
- 62c:	d1 f4       	brne	.+52     	; 0x662 <Process_Command+0xda>
-	{
-		if(rx_buffer[1] == '1'){
- 62e:	80 91 d9 01 	lds	r24, 0x01D9	; 0x8001d9 <rx_buffer+0x1>
- 632:	81 33       	cpi	r24, 0x31	; 49
- 634:	49 f4       	brne	.+18     	; 0x648 <Process_Command+0xc0>
-			I2C_SendCommand(SLAVE_ACTUATORS_ADDR, CMD_PUMP_START);				// Encender bomba
- 636:	60 e2       	ldi	r22, 0x20	; 32
- 638:	80 e3       	ldi	r24, 0x30	; 48
- 63a:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
-			UART_SendString("Pump START\r\n");	// Eliminar en implementación
- 63e:	83 e5       	ldi	r24, 0x53	; 83
- 640:	91 e0       	ldi	r25, 0x01	; 1
- 642:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
- 646:	6a c0       	rjmp	.+212    	; 0x71c <Process_Command+0x194>
+			if(percentage > 40) UART_SendString("No necesita agua\r\n");
+ 622:	0f b6       	in	r0, 0x3f	; 63
+ 624:	f8 94       	cli
+ 626:	de bf       	out	0x3e, r29	; 62
+ 628:	0f be       	out	0x3f, r0	; 63
+ 62a:	cd bf       	out	0x3d, r28	; 61
+ 62c:	19 32       	cpi	r17, 0x29	; 41
+ 62e:	28 f0       	brcs	.+10     	; 0x63a <Process_Command+0xb2>
+ 630:	80 e3       	ldi	r24, 0x30	; 48
+ 632:	91 e0       	ldi	r25, 0x01	; 1
+ 634:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
+ 638:	71 c0       	rjmp	.+226    	; 0x71c <Process_Command+0x194>
+			else UART_SendString("Necesita agua\r\n");
+ 63a:	83 e4       	ldi	r24, 0x43	; 67
+ 63c:	91 e0       	ldi	r25, 0x01	; 1
+ 63e:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
 		}
-		else if(rx_buffer[1] == '0'){
- 648:	80 91 d9 01 	lds	r24, 0x01D9	; 0x8001d9 <rx_buffer+0x1>
- 64c:	80 33       	cpi	r24, 0x30	; 48
+		break;
+ 642:	6c c0       	rjmp	.+216    	; 0x71c <Process_Command+0x194>
+// 		}
+// 		break;
+
+		// -- BOMBA DE RIEGO ('P') --
+		case 'P':
+		switch (rx_buffer[1])
+ 644:	80 91 ed 01 	lds	r24, 0x01ED	; 0x8001ed <rx_buffer+0x1>
+ 648:	80 33       	cpi	r24, 0x30	; 48
+ 64a:	61 f0       	breq	.+24     	; 0x664 <Process_Command+0xdc>
+ 64c:	81 33       	cpi	r24, 0x31	; 49
  64e:	09 f0       	breq	.+2      	; 0x652 <Process_Command+0xca>
  650:	65 c0       	rjmp	.+202    	; 0x71c <Process_Command+0x194>
-			I2C_SendCommand(SLAVE_ACTUATORS_ADDR, CMD_PUMP_STOP);				// Apagar bomba
- 652:	61 e2       	ldi	r22, 0x21	; 33
- 654:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
-			UART_SendString("Pump STOP\r\n");	// Eliminar en implementación
- 658:	80 e6       	ldi	r24, 0x60	; 96
- 65a:	91 e0       	ldi	r25, 0x01	; 1
- 65c:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
- 660:	5d c0       	rjmp	.+186    	; 0x71c <Process_Command+0x194>
+		{
+			case '1':
+			I2C_SendCommand(SLAVE_ACTUATORS_ADDR, CMD_PUMP_START);
+ 652:	60 e2       	ldi	r22, 0x20	; 32
+ 654:	80 e3       	ldi	r24, 0x30	; 48
+ 656:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
+			UART_SendString("Pump START\r\n");
+ 65a:	83 e5       	ldi	r24, 0x53	; 83
+ 65c:	91 e0       	ldi	r25, 0x01	; 1
+ 65e:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
+			break;
+ 662:	5c c0       	rjmp	.+184    	; 0x71c <Process_Command+0x194>
+			case '0':
+			I2C_SendCommand(SLAVE_ACTUATORS_ADDR, CMD_PUMP_STOP);
+ 664:	61 e2       	ldi	r22, 0x21	; 33
+ 666:	80 e3       	ldi	r24, 0x30	; 48
+ 668:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
+			UART_SendString("Pump STOP\r\n");
+ 66c:	80 e6       	ldi	r24, 0x60	; 96
+ 66e:	91 e0       	ldi	r25, 0x01	; 1
+ 670:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
+			break;
+ 674:	53 c0       	rjmp	.+166    	; 0x71c <Process_Command+0x194>
 		}
-	}
-	
-	// -- SERVOMOTOR : Abrir puerta --
-	else if(rx_buffer[0] == 'S')
- 662:	80 91 d8 01 	lds	r24, 0x01D8	; 0x8001d8 <rx_buffer>
- 666:	83 35       	cpi	r24, 0x53	; 83
- 668:	d1 f4       	brne	.+52     	; 0x69e <Process_Command+0x116>
-	{
-		if(rx_buffer[1] == '1'){
- 66a:	80 91 d9 01 	lds	r24, 0x01D9	; 0x8001d9 <rx_buffer+0x1>
- 66e:	81 33       	cpi	r24, 0x31	; 49
- 670:	49 f4       	brne	.+18     	; 0x684 <Process_Command+0xfc>
-			I2C_SendCommand(SLAVE_ACTUATORS_ADDR, CMD_SERVO_OPEN);						// Abrir puerta
- 672:	60 e1       	ldi	r22, 0x10	; 16
- 674:	80 e3       	ldi	r24, 0x30	; 48
- 676:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
-			UART_SendString("Servo OPEN\r\n");	// Eliminar en implementación
- 67a:	8c e6       	ldi	r24, 0x6C	; 108
- 67c:	91 e0       	ldi	r25, 0x01	; 1
- 67e:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
+		break;
+
+		// -- SERVOMOTOR PUERTA ('S') --
+		case 'S':
+		switch (rx_buffer[1])
+ 676:	80 91 ed 01 	lds	r24, 0x01ED	; 0x8001ed <rx_buffer+0x1>
+ 67a:	80 33       	cpi	r24, 0x30	; 48
+ 67c:	61 f0       	breq	.+24     	; 0x696 <Process_Command+0x10e>
+ 67e:	81 33       	cpi	r24, 0x31	; 49
+ 680:	09 f0       	breq	.+2      	; 0x684 <Process_Command+0xfc>
  682:	4c c0       	rjmp	.+152    	; 0x71c <Process_Command+0x194>
+		{
+			case '1':
+			I2C_SendCommand(SLAVE_ACTUATORS_ADDR, CMD_SERVO_OPEN);
+ 684:	60 e1       	ldi	r22, 0x10	; 16
+ 686:	80 e3       	ldi	r24, 0x30	; 48
+ 688:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
+			UART_SendString("Servo OPEN\r\n");
+ 68c:	8c e6       	ldi	r24, 0x6C	; 108
+ 68e:	91 e0       	ldi	r25, 0x01	; 1
+ 690:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
+			break;
+ 694:	43 c0       	rjmp	.+134    	; 0x71c <Process_Command+0x194>
+			case '0':
+			I2C_SendCommand(SLAVE_ACTUATORS_ADDR, CMD_SERVO_CLOSE);
+ 696:	61 e1       	ldi	r22, 0x11	; 17
+ 698:	80 e3       	ldi	r24, 0x30	; 48
+ 69a:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
+			UART_SendString("Servo CLOSE\r\n");
+ 69e:	89 e7       	ldi	r24, 0x79	; 121
+ 6a0:	91 e0       	ldi	r25, 0x01	; 1
+ 6a2:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
+			break;
+ 6a6:	3a c0       	rjmp	.+116    	; 0x71c <Process_Command+0x194>
 		}
-		else if(rx_buffer[1] == '0'){
- 684:	80 91 d9 01 	lds	r24, 0x01D9	; 0x8001d9 <rx_buffer+0x1>
- 688:	80 33       	cpi	r24, 0x30	; 48
- 68a:	09 f0       	breq	.+2      	; 0x68e <Process_Command+0x106>
- 68c:	47 c0       	rjmp	.+142    	; 0x71c <Process_Command+0x194>
-			I2C_SendCommand(SLAVE_ACTUATORS_ADDR, CMD_SERVO_CLOSE);						// Cerrar puerta
- 68e:	61 e1       	ldi	r22, 0x11	; 17
- 690:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
-			UART_SendString("Servo CLOSE\r\n");	// Eliminar en implementación
- 694:	89 e7       	ldi	r24, 0x79	; 121
- 696:	91 e0       	ldi	r25, 0x01	; 1
- 698:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
- 69c:	3f c0       	rjmp	.+126    	; 0x71c <Process_Command+0x194>
-		}
-	}
-	
-	// -- MOTOR DC : VENTILADOR --
-	else if(rx_buffer[0] == 'F')
- 69e:	80 91 d8 01 	lds	r24, 0x01D8	; 0x8001d8 <rx_buffer>
- 6a2:	86 34       	cpi	r24, 0x46	; 70
- 6a4:	c9 f4       	brne	.+50     	; 0x6d8 <Process_Command+0x150>
-	{
-		if(rx_buffer[1] == '1'){
- 6a6:	80 91 d9 01 	lds	r24, 0x01D9	; 0x8001d9 <rx_buffer+0x1>
- 6aa:	81 33       	cpi	r24, 0x31	; 49
- 6ac:	41 f4       	brne	.+16     	; 0x6be <Process_Command+0x136>
-			I2C_SendCommand(SLAVE_ENV_ADDR, CMD_FAN_ON);							// Encender ventilador
- 6ae:	61 e4       	ldi	r22, 0x41	; 65
- 6b0:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
-			UART_SendString("Fan ON\r\n");		// Eliminar en implementación
- 6b4:	87 e8       	ldi	r24, 0x87	; 135
- 6b6:	91 e0       	ldi	r25, 0x01	; 1
- 6b8:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
- 6bc:	2f c0       	rjmp	.+94     	; 0x71c <Process_Command+0x194>
-		}
-		else if(rx_buffer[1] == '0'){
- 6be:	80 91 d9 01 	lds	r24, 0x01D9	; 0x8001d9 <rx_buffer+0x1>
- 6c2:	80 33       	cpi	r24, 0x30	; 48
- 6c4:	59 f5       	brne	.+86     	; 0x71c <Process_Command+0x194>
-			I2C_SendCommand(SLAVE_ENV_ADDR, CMD_FAN_OFF);							// Apagar ventilador
- 6c6:	62 e4       	ldi	r22, 0x42	; 66
- 6c8:	81 e3       	ldi	r24, 0x31	; 49
- 6ca:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
-			UART_SendString("Fan OFF\r\n");		// Eliminar en implementación
- 6ce:	80 e9       	ldi	r24, 0x90	; 144
- 6d0:	91 e0       	ldi	r25, 0x01	; 1
- 6d2:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
- 6d6:	22 c0       	rjmp	.+68     	; 0x71c <Process_Command+0x194>
-		}
-	}
-	
-	// -- MOTOR DC : CONTROL DE VELOCIDAD --
-	else if(rx_buffer[0] == 'V')
- 6d8:	80 91 d8 01 	lds	r24, 0x01D8	; 0x8001d8 <rx_buffer>
- 6dc:	86 35       	cpi	r24, 0x56	; 86
- 6de:	f1 f4       	brne	.+60     	; 0x71c <Process_Command+0x194>
-	{
-		uint8_t speed = atoi((char*)&rx_buffer[1]);
- 6e0:	89 ed       	ldi	r24, 0xD9	; 217
- 6e2:	91 e0       	ldi	r25, 0x01	; 1
- 6e4:	0e 94 a7 04 	call	0x94e	; 0x94e <atoi>
- 6e8:	7c 01       	movw	r14, r24
-		if(speed > 255) speed = 255;
+		break;
 
-		Fan_SetSpeed(speed);
- 6ea:	0e 94 92 02 	call	0x524	; 0x524 <Fan_SetSpeed>
+		// -- VENTILADOR ENCENDIDO/APAGADO ('F') --
+		case 'F':
+		switch (rx_buffer[1])
+ 6a8:	80 91 ed 01 	lds	r24, 0x01ED	; 0x8001ed <rx_buffer+0x1>
+ 6ac:	80 33       	cpi	r24, 0x30	; 48
+ 6ae:	51 f0       	breq	.+20     	; 0x6c4 <Process_Command+0x13c>
+ 6b0:	81 33       	cpi	r24, 0x31	; 49
+ 6b2:	a1 f5       	brne	.+104    	; 0x71c <Process_Command+0x194>
+		{
+			case '1':
+			I2C_SendCommand(SLAVE_ENV_ADDR, CMD_FAN_ON);
+ 6b4:	61 e4       	ldi	r22, 0x41	; 65
+ 6b6:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
+			UART_SendString("Fan ON\r\n");
+ 6ba:	87 e8       	ldi	r24, 0x87	; 135
+ 6bc:	91 e0       	ldi	r25, 0x01	; 1
+ 6be:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
+			break;
+ 6c2:	2c c0       	rjmp	.+88     	; 0x71c <Process_Command+0x194>
+			case '0':
+			I2C_SendCommand(SLAVE_ENV_ADDR, CMD_FAN_OFF);
+ 6c4:	62 e4       	ldi	r22, 0x42	; 66
+ 6c6:	81 e3       	ldi	r24, 0x31	; 49
+ 6c8:	0e 94 7e 02 	call	0x4fc	; 0x4fc <I2C_SendCommand>
+			UART_SendString("Fan OFF\r\n");
+ 6cc:	80 e9       	ldi	r24, 0x90	; 144
+ 6ce:	91 e0       	ldi	r25, 0x01	; 1
+ 6d0:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
+			break;
+ 6d4:	23 c0       	rjmp	.+70     	; 0x71c <Process_Command+0x194>
+		break;
 
-		char buffer[40];
-		sprintf(buffer, "Fan speed: %d\r\n", speed);
- 6ee:	ff 24       	eor	r15, r15
- 6f0:	ff 92       	push	r15
- 6f2:	ef 92       	push	r14
- 6f4:	8a e9       	ldi	r24, 0x9A	; 154
- 6f6:	91 e0       	ldi	r25, 0x01	; 1
- 6f8:	9f 93       	push	r25
- 6fa:	8f 93       	push	r24
- 6fc:	8e 01       	movw	r16, r28
- 6fe:	0f 5f       	subi	r16, 0xFF	; 255
- 700:	1f 4f       	sbci	r17, 0xFF	; 255
- 702:	1f 93       	push	r17
- 704:	0f 93       	push	r16
- 706:	0e 94 cd 04 	call	0x99a	; 0x99a <sprintf>
-		UART_SendString(buffer);
- 70a:	c8 01       	movw	r24, r16
- 70c:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
+		// -- VENTILADOR VELOCIDAD PWM ('V') --
+		case 'V':
+		{
+			uint8_t speed = (uint8_t)atoi((char*)&rx_buffer[1]);
+ 6d6:	8d ee       	ldi	r24, 0xED	; 237
+ 6d8:	91 e0       	ldi	r25, 0x01	; 1
+ 6da:	0e 94 a7 04 	call	0x94e	; 0x94e <atoi>
+ 6de:	8c 01       	movw	r16, r24
+			// El límite de 255 ya está implícito en uint8_t,
+			// pero atoi podría devolver algo mayor antes del cast.
+			Fan_SetSpeed(speed);
+ 6e0:	0e 94 92 02 	call	0x524	; 0x524 <Fan_SetSpeed>
+
+			char buffer[40];
+			sprintf(buffer, "Fan speed: %d\r\n", speed);
+ 6e4:	11 27       	eor	r17, r17
+ 6e6:	1f 93       	push	r17
+ 6e8:	0f 93       	push	r16
+ 6ea:	8a e9       	ldi	r24, 0x9A	; 154
+ 6ec:	91 e0       	ldi	r25, 0x01	; 1
+ 6ee:	9f 93       	push	r25
+ 6f0:	8f 93       	push	r24
+ 6f2:	8e 01       	movw	r16, r28
+ 6f4:	0f 5f       	subi	r16, 0xFF	; 255
+ 6f6:	1f 4f       	sbci	r17, 0xFF	; 255
+ 6f8:	1f 93       	push	r17
+ 6fa:	0f 93       	push	r16
+ 6fc:	0e 94 cd 04 	call	0x99a	; 0x99a <sprintf>
+			UART_SendString(buffer);
+ 700:	c8 01       	movw	r24, r16
+ 702:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
+		}
+		break;
+ 706:	0f 90       	pop	r0
+ 708:	0f 90       	pop	r0
+ 70a:	0f 90       	pop	r0
+ 70c:	0f 90       	pop	r0
+ 70e:	0f 90       	pop	r0
  710:	0f 90       	pop	r0
- 712:	0f 90       	pop	r0
- 714:	0f 90       	pop	r0
- 716:	0f 90       	pop	r0
- 718:	0f 90       	pop	r0
- 71a:	0f 90       	pop	r0
-	}
+ 712:	04 c0       	rjmp	.+8      	; 0x71c <Process_Command+0x194>
 
+		// Caso por defecto (Comando no reconocido)
+		default:
+		UART_SendString("Comando invalido\r\n");
+ 714:	8a ea       	ldi	r24, 0xAA	; 170
+ 716:	91 e0       	ldi	r25, 0x01	; 1
+ 718:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
+		break;
+	}
 }
  71c:	a8 96       	adiw	r28, 0x28	; 40
  71e:	0f b6       	in	r0, 0x3f	; 63
@@ -1419,14 +1432,14 @@ int main(void)
  77a:	91 e0       	ldi	r25, 0x01	; 1
  77c:	0e 94 1b 01 	call	0x236	; 0x236 <LCD_SetCursor>
 	LCD_WriteString(&lcd, "INVERNADERO OK");
- 780:	6a ea       	ldi	r22, 0xAA	; 170
+ 780:	6d eb       	ldi	r22, 0xBD	; 189
  782:	71 e0       	ldi	r23, 0x01	; 1
  784:	80 e0       	ldi	r24, 0x00	; 0
  786:	91 e0       	ldi	r25, 0x01	; 1
  788:	0e 94 08 01 	call	0x210	; 0x210 <LCD_WriteString>
 	
 	UART_SendString("Sistema listo\r\n");
- 78c:	89 eb       	ldi	r24, 0xB9	; 185
+ 78c:	8c ec       	ldi	r24, 0xCC	; 204
  78e:	91 e0       	ldi	r25, 0x01	; 1
  790:	0e 94 50 04 	call	0x8a0	; 0x8a0 <UART_SendString>
 	char lcd_buf[17];
@@ -1435,26 +1448,26 @@ int main(void)
 	{
 		// Comandos UART
 		if(command_ready)
- 794:	80 91 d6 01 	lds	r24, 0x01D6	; 0x8001d6 <command_ready>
+ 794:	80 91 ea 01 	lds	r24, 0x01EA	; 0x8001ea <command_ready>
  798:	88 23       	and	r24, r24
  79a:	21 f0       	breq	.+8      	; 0x7a4 <main+0x6e>
 		{
 			Process_Command();
  79c:	0e 94 c4 02 	call	0x588	; 0x588 <Process_Command>
 			command_ready = 0;
- 7a0:	10 92 d6 01 	sts	0x01D6, r1	; 0x8001d6 <command_ready>
+ 7a0:	10 92 ea 01 	sts	0x01EA, r1	; 0x8001ea <command_ready>
 		}
 		
 		// B. Actualizar datos de sensores cada cierto tiempo (sin usar delay largo)
 		static uint16_t refresh_timer = 0;
 		if(refresh_timer++ > 500) 
- 7a4:	80 91 d4 01 	lds	r24, 0x01D4	; 0x8001d4 <__data_end>
- 7a8:	90 91 d5 01 	lds	r25, 0x01D5	; 0x8001d5 <__data_end+0x1>
+ 7a4:	80 91 e8 01 	lds	r24, 0x01E8	; 0x8001e8 <__data_end>
+ 7a8:	90 91 e9 01 	lds	r25, 0x01E9	; 0x8001e9 <__data_end+0x1>
  7ac:	9c 01       	movw	r18, r24
  7ae:	2f 5f       	subi	r18, 0xFF	; 255
  7b0:	3f 4f       	sbci	r19, 0xFF	; 255
- 7b2:	30 93 d5 01 	sts	0x01D5, r19	; 0x8001d5 <__data_end+0x1>
- 7b6:	20 93 d4 01 	sts	0x01D4, r18	; 0x8001d4 <__data_end>
+ 7b2:	30 93 e9 01 	sts	0x01E9, r19	; 0x8001e9 <__data_end+0x1>
+ 7b6:	20 93 e8 01 	sts	0x01E8, r18	; 0x8001e8 <__data_end>
  7ba:	85 3f       	cpi	r24, 0xF5	; 245
  7bc:	91 40       	sbci	r25, 0x01	; 1
  7be:	d8 f1       	brcs	.+118    	; 0x836 <__DATA_REGION_LENGTH__+0x36>
@@ -1525,7 +1538,7 @@ int main(void)
 			sprintf(lcd_buf, "H: %3d%%  ", percentage);
  7fe:	1f 92       	push	r1
  800:	1f 93       	push	r17
- 802:	89 ec       	ldi	r24, 0xC9	; 201
+ 802:	8c ed       	ldi	r24, 0xDC	; 220
  804:	91 e0       	ldi	r25, 0x01	; 1
  806:	9f 93       	push	r25
  808:	8f 93       	push	r24
@@ -1542,8 +1555,8 @@ int main(void)
  81e:	0e 94 08 01 	call	0x210	; 0x210 <LCD_WriteString>
 			
 			refresh_timer = 0;
- 822:	10 92 d5 01 	sts	0x01D5, r1	; 0x8001d5 <__data_end+0x1>
- 826:	10 92 d4 01 	sts	0x01D4, r1	; 0x8001d4 <__data_end>
+ 822:	10 92 e9 01 	sts	0x01E9, r1	; 0x8001e9 <__data_end+0x1>
+ 826:	10 92 e8 01 	sts	0x01E8, r1	; 0x8001e8 <__data_end>
  82a:	0f 90       	pop	r0
  82c:	0f 90       	pop	r0
  82e:	0f 90       	pop	r0
