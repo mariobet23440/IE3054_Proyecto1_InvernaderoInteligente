@@ -3,22 +3,16 @@
  *
  * Created: 12/02/2026 07:37:51 p. m.
  * Author : David Carranza
-   REVISIÓN POR MARIO BETANCOURT
-
  */ 
-
-// Definición de frecuencia de reloj
 #define F_CPU 16000000UL
-
-// Librerías
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <avr/interrupt.h>
-#include "I2C.h"		// Mía
-#include "UART.h"		// David
-#include "HD44780_4b.h" // Mía
+#include "I2C.h"
+#include "UART.h"
+#include "HD44780_4b.h"
 
 /************************************************************************/
 /*                        DIRECCIONES I2C                               */
@@ -26,9 +20,10 @@
 
 #define SLAVE_ACTUATORS_ADDR  0x30	// Nano 1
 #define SLAVE_ENV_ADDR		  0x31	// Nano 2
+#define TSL2561_ADDR          0x39	// Sensor de Luz
 
 /************************************************************************/
-/*                        COMANDOS NANO 1                               */
+/* COMANDOS NANO 1                                                      */
 /************************************************************************/
 
 #define CMD_PUMP_START	0x20
@@ -36,33 +31,46 @@
 #define CMD_SERVO_OPEN	0x10
 #define CMD_SERVO_CLOSE	0x11
 
-/************************/
+/************************************************************************/
 /* COMANDOS NANO 2                                                      */
-/************************/
+/************************************************************************/
 
 #define CMD_READ_SOIL	0x40
 #define CMD_FAN_ON		0x41
 #define CMD_FAN_OFF		0X42
 #define CMD_FAN_PWM		0x43
 
-/************************/
+/************************************************************************/
+/* COMANDOS SENSOR LUZ                                                                     */
+/************************************************************************/
+
+#define TSL2561_CMD_BIT       0x80
+#define TSL2561_WORD_BIT      0x20
+#define TSL2561_REG_CONTROL   0x00
+#define TSL2561_REG_DATA0LO   0x0C
+#define CMD_POWER_UP          (TSL2561_CMD_BIT | TSL2561_REG_CONTROL)
+#define CMD_READ_DATA         (TSL2561_CMD_BIT | TSL2561_WORD_BIT | TSL2561_REG_DATA0LO)
+
+/************************************************************************/
 /* PARAMETROS                                                           */
-/************************/
+/************************************************************************/
 
 #define SOIL_THRESHOLD   150
 #define RX_BUFFER_SIZE   32
+#define SOIL_RAW_DRY   255
+#define SOIL_RAW_WET   160
 
-/************************/
+/************************************************************************/
 /* VARIABLES UART                                                       */
-/************************/
+/************************************************************************/
 
 volatile char rx_buffer[RX_BUFFER_SIZE];
 volatile uint8_t rx_index = 0;
 volatile uint8_t command_ready = 0;
 
-/************************/
+/************************************************************************/
 /* LCD 4 BITS                                                                    */
-/************************/
+/************************************************************************/
 
 LCD_4b lcd = {
 	.rs = { &PORTD, &DDRD, PORTD2 },
@@ -73,58 +81,98 @@ LCD_4b lcd = {
 	.d7 = { &PORTB, &DDRB, PORTB0 }
 };
 
-/************************/
+/************************************************************************/
 /* FUNCIONES I2C                                                        */
-/************************/
+/************************************************************************/
 
+// void TSL2561_Init_Sensor(void) {
+// 	if (I2C_MasterStart()) {
+// 		if (I2C_Master_Write((TSL2561_ADDR << 1) | I2C_WRITE) == 0x18) {
+// 			I2C_Master_Write(CMD_POWER_UP);
+// 			I2C_Master_Write(0x03); // Encender
+// 		}
+// 		I2C_MasterStop();
+// 	}
+// }
+//
+// uint16_t TSL2561_Read_Luminosity(void) {
+// 	uint8_t lo = 0, hi = 0;
+// 	if (I2C_MasterStart()) {
+// 		I2C_Master_Write((TSL2561_ADDR << 1) | I2C_WRITE);
+// 		I2C_Master_Write(CMD_READ_DATA);
+// 		I2C_MasterRepeatedStart();
+// 		I2C_Master_Write((TSL2561_ADDR << 1) | I2C_READ);
+// 		I2C_MasterRead(&lo, I2C_ACK);
+// 		I2C_MasterRead(&hi, I2C_NACK);
+// 		I2C_MasterStop();
+// 	}
+// 	return (uint16_t)((hi << 8) | lo);
+// }
+
+
+// NOTAS PARA RENOVACIÓN : Crear una función SendCommand
+// Evitar líneas repetidas
+// Encender bomba de riego
 void Pump_Start_Command(void)
 {
+	// Escribir comando en esclavo SLAVE_ACTUACTORS
 	I2C_MasterStart();
 	I2C_Master_Write((SLAVE_ACTUATORS_ADDR<<1)|I2C_WRITE);
 	I2C_Master_Write(CMD_PUMP_START);
 	I2C_MasterStop();
 }
 
+// Apagar bomba de riego
 void Pump_Stop_Command(void)
 {
+	// Escribir comando en esclavo SLAVE_ACTUACTORS
 	I2C_MasterStart();
 	I2C_Master_Write((SLAVE_ACTUATORS_ADDR<<1)|I2C_WRITE);
 	I2C_Master_Write(CMD_PUMP_STOP);
 	I2C_MasterStop();
 }
 
+// Abrir puerta (servomotor)
 void Servo_Open(void)
 {
+	// Escribir comando en SLAVE_ACTUATORS
 	I2C_MasterStart();
 	I2C_Master_Write((SLAVE_ACTUATORS_ADDR<<1)|I2C_WRITE);
 	I2C_Master_Write(CMD_SERVO_OPEN);
 	I2C_MasterStop();
 }
 
+// Cerrar puerta (servomotor)
 void Servo_Close(void)
 {
+	// Escribir comando en SLAVE_ACTUATORS
 	I2C_MasterStart();
 	I2C_Master_Write((SLAVE_ACTUATORS_ADDR<<1)|I2C_WRITE);
 	I2C_Master_Write(CMD_SERVO_CLOSE);
 	I2C_MasterStop();
 }
 
+// Encender ventilador (motor DC)
 void Fan_On(void)
 {
+	// Escribir comando en esclavo
 	I2C_MasterStart();
 	I2C_Master_Write((SLAVE_ENV_ADDR<<1)|I2C_WRITE);
 	I2C_Master_Write(CMD_FAN_ON);
 	I2C_MasterStop();
 }
 
+// Apagar ventilador (motor DC)
 void Fan_Off(void)
 {
+	// Escribir comando en esclavo
 	I2C_MasterStart();
 	I2C_Master_Write((SLAVE_ENV_ADDR<<1)|I2C_WRITE);
 	I2C_Master_Write(CMD_FAN_OFF);
 	I2C_MasterStop();
 }
 
+// Establecer velocidad de ventilador
 void Fan_SetSpeed(uint8_t speed)
 {
 	I2C_MasterStart();
@@ -134,7 +182,7 @@ void Fan_SetSpeed(uint8_t speed)
 	I2C_MasterStop();
 }
 
-
+// Leer sensor de humedad de suelo
 uint8_t Read_Soil(void)
 {
 	uint8_t soil_value = 0;
@@ -156,77 +204,93 @@ uint8_t Read_Soil(void)
 
 
 
-/************************/
-/* PROCESAMIENTO UART                                                   */
-/************************/
-
+/************************************************************************/
+/* fUNCIONES AUXILIARES                                                 */
+/************************************************************************/
+// Procesar comandos recibidos por UART
 void Process_Command(void)
 {
-	// Ejemplos:
+	// Protocolo
 	// P1 -> Start bomba
 	// P0 -> Stop bomba
 	// S1 -> Servo abrir
 	// S0 -> Servo cerrar
+	// S1 -> Servo abrir
+	// S0 -> Servo cerrar
 	// Q  -> Sensor humedad suelo
+	// L  -> Sensor luz ambiente
 	
-	if(rx_buffer[0] == 'Q')   // Consulta humedad
+	// -- CONSULTAR HUMEDAD DE SUELO ('Q') --
+	if(rx_buffer[0] == 'Q')
 	{
+		// Lectura de humedad de suelo (Byte)
 		uint8_t soil = Read_Soil();
 
+		// Cálculo de porcentaje relativo de humedad
+		uint8_t percentage;
+		
+		// Truncamiento de valor y cálculo en región de sensado
+		if(soil >= SOIL_RAW_DRY) percentage = 0;
+		else if(soil <= SOIL_RAW_WET) percentage = 100;
+		else percentage = 100 - ((soil - SOIL_RAW_WET) * 100) / (SOIL_RAW_DRY - SOIL_RAW_WET);
+		
+		// LOGS SERIALES (Eliminar en implementación)
 		char buffer[40];
-		uint8_t percentage = 100 - ((soil * 100) / 255);
-
 		sprintf(buffer, "Soil: %d (%d%%)\r\n", soil, percentage);
 		UART_SendString(buffer);
 
-		if(soil < SOIL_THRESHOLD)
-		UART_SendString("No necesita agua\r\n");
-		else
-		UART_SendString("Necesita agua\r\n");
+		if(percentage > 40) UART_SendString("No necesita agua\r\n");
+		else UART_SendString("Necesita agua\r\n");
 	}
 	
+	// 	else if(rx_buffer[0] == 'L')
+	// 	{ // Comando Luminosidad
+	// 		char buffer[40]
+	// 		uint16_t lux = TSL2561_Read_Luminosity();
+	// 		sprintf(buffer, "Luminosidad: %u lux\r\n", lux);
+	// 		UART_SendString(buffer);
+	// 	}
+	
+	// -- MOTOR STEPPER : BOMBA DE RIEGO --
 	else if(rx_buffer[0] == 'P')
 	{
-		if(rx_buffer[1] == '1')
-		{
-			Pump_Start_Command();
-			UART_SendString("Pump START\r\n");
+		if(rx_buffer[1] == '1'){
+			Pump_Start_Command();				// Encender bomba
+			UART_SendString("Pump START\r\n");	// Eliminar en implementación
 		}
-		else if(rx_buffer[1] == '0')
-		{
-			Pump_Stop_Command();
-			UART_SendString("Pump STOP\r\n");
+		else if(rx_buffer[1] == '0'){
+			Pump_Stop_Command();				// Apagar bomba
+			UART_SendString("Pump STOP\r\n");	// Eliminar en implementación
 		}
 	}
 	
+	// -- SERVOMOTOR : Abrir puerta --
 	else if(rx_buffer[0] == 'S')
 	{
-		if(rx_buffer[1] == '1')
-		{
-			Servo_Open();
-			UART_SendString("Servo OPEN\r\n");
+		if(rx_buffer[1] == '1'){
+			Servo_Open();						// Abrir puerta
+			UART_SendString("Servo OPEN\r\n");	// Eliminar en implementación
 		}
-		else if(rx_buffer[1] == '0')
-		{
-			Servo_Close();
-			UART_SendString("Servo CLOSE\r\n");
+		else if(rx_buffer[1] == '0'){
+			Servo_Close();						// Cerrar puerta
+			UART_SendString("Servo CLOSE\r\n");	// Eliminar en implementación
 		}
 	}
 	
+	// -- MOTOR DC : VENTILADOR --
 	else if(rx_buffer[0] == 'F')
 	{
-		if(rx_buffer[1] == '1')
-		{
-			Fan_On();
-			UART_SendString("Fan ON\r\n");
+		if(rx_buffer[1] == '1'){
+			Fan_On();							// Encender ventilador
+			UART_SendString("Fan ON\r\n");		// Eliminar en implementación
 		}
-		else if(rx_buffer[1] == '0')
-		{
-			Fan_Off();
-			UART_SendString("Fan OFF\r\n");
+		else if(rx_buffer[1] == '0'){
+			Fan_Off();							// Apagar ventilador
+			UART_SendString("Fan OFF\r\n");		// Eliminar en implementación
 		}
 	}
 	
+	// -- MOTOR DC : CONTROL DE VELOCIDAD --
 	else if(rx_buffer[0] == 'V')
 	{
 		uint8_t speed = atoi((char*)&rx_buffer[1]);
@@ -242,9 +306,9 @@ void Process_Command(void)
 }
 
 
-/************************/
+/************************************************************************/
 /* ISR                                                                  */
-/************************/
+/************************************************************************/
 
 ISR(USART_RX_vect)
 {
@@ -263,15 +327,22 @@ ISR(USART_RX_vect)
 	}
 }
 
-/************************/
+/************************************************************************/
 /* MAIN                                                                 */
-/************************/
+/************************************************************************/
 
 int main(void)
 {
 	I2C_MasterInit(100000UL, 1);
 	UART_Init(UART_BAUD_9600_16MHZ, UART_INTERRUPTS_ENABLED);
 	LCD_Init_4b(&lcd);
+	
+	// Inicializar TSL2561
+// 	I2C_MasterStart();
+// 	I2C_Master_Write((TSL2561_ADDR << 1) | I2C_WRITE);
+// 	I2C_Master_Write(0x80 | 0x00); // Control Register
+// 	I2C_Master_Write(0x03);        // Power Up
+// 	I2C_MasterStop();
 
 	sei();   // Habilitar interrupciones globales
 
@@ -281,7 +352,7 @@ int main(void)
 	
 	UART_SendString("Sistema listo\r\n");
 	
-	uint8_t current_hum = 0;
+	//uint8_t current_hum = 0;
 	char lcd_buf[17];
 
 	while(1)
@@ -297,12 +368,32 @@ int main(void)
 		static uint16_t refresh_timer = 0;
 		if(refresh_timer++ > 500) 
 		
-		{ // Aproximadamente cada 500ms
-			current_hum = Read_Soil();
+		{ 
+			// Aproximadamente cada 500ms
+			/*uint16_t current_lux = TSL2561_Read_Luminosity();*/
+			uint8_t soil = Read_Soil();
+
+			uint8_t percentage;
+
+			if(soil >= SOIL_RAW_DRY)
+			percentage = 0;
+			else if(soil <= SOIL_RAW_WET)
+			percentage = 100;
+			else
+			{
+				percentage = 100 -
+				((soil - SOIL_RAW_WET) * 100) /
+				(SOIL_RAW_DRY - SOIL_RAW_WET);
+			}
+
 			
 			// Actualizar LCD Fila 2
+// 			LCD_SetCursor(&lcd, 0, 10);
+// 			sprintf(lcd_buf, "L: %5u lux  ", current_lux);
+// 			LCD_WriteString(&lcd, lcd_buf);
+			
 			LCD_SetCursor(&lcd, 0, 1);
-			sprintf(lcd_buf, "Humedad: %3d%%  ", current_hum);
+			sprintf(lcd_buf, "H: %3d%%  ", percentage);
 			LCD_WriteString(&lcd, lcd_buf);
 			
 			refresh_timer = 0;
@@ -311,3 +402,4 @@ int main(void)
 		_delay_ms(1);
 	}
 }
+
