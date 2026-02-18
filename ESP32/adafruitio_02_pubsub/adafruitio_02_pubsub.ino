@@ -1,140 +1,106 @@
 /****************************************************************************
   IE3054 - PROYECTO 1 - INVERNADERO INTELIGENTE (ESP32)
   CÓDIGO ORIGINAL - Ejemplo 2 de AdafruitIO (adafruitio_02_pubsub)
-  ADAPTADO POR - David Carranza y Mario Betancourt
-  DESCRIPCIÓN - Este código conecta un ESP32 a una interfaz de AdafruitIO,
-                donde
-
-
+  ADAPTADO POR - Mario Betancourt (Protocolo de David Carranza)
+  DESCRIPCIÓN - Este código conecta un ESP32 a una interfaz de AdafruitIO.
 *****************************************************************************/
 
-// Adafruit IO Publish & Subscribe
-
-
 /************************** Configuration ***********************************/
-
-// edit the config.h tab and enter your Adafruit IO credentials
-// and any additional configuration needed for WiFi, cellular,
-// or ethernet clients.
 #include "config.h"
 
-/************************ Example Starts Here *******************************/
-
-// this int will hold the current count for our sketch
-int count = 0;
-
+/************************ Variables *******************************/
+// Delay para evitar alcanzar data rate máximo
 #define IO_LOOP_DELAY 10000
 unsigned long lastUpdate = 0;
 
-// set up the 'counter' feed
-AdafruitIO_Feed *counter          = io.feed("counter");
+// Feeds de Sensores
 AdafruitIO_Feed *humedadFeed      = io.feed("humedad");
 AdafruitIO_Feed *temperaturaFeed  = io.feed("temp");
-AdafruitIO_Feed *motorDCFeed      = io.feed("motordc");
-AdafruitIO_Feed *comandoFeed      = io.feed("comando");
+AdafruitIO_Feed *luzFeed  = io.feed("intensidad_luz");
 
+// Feeds de Actuadores
+AdafruitIO_Feed *motorDCFeed      = io.feed("motordc");
+AdafruitIO_Feed *stepperFeed      = io.feed("motorstepper");
+AdafruitIO_Feed *servoFeed        = io.feed("motorservo");
+
+// Setup
 void setup() {
 
-  // start the serial connection
+  // Iniciar serial 1 a BAUD = 115200
   Serial.begin(115200);
 
-  // 1. Arrancamos el Serial 2 (ajusta los baudios según lo que necesites)
+  // Iniciar serial 2 a BAUD = 9600, 8 BITS SIN PARIDAD Y 1 BIT DE PARADA
   Serial2.begin(9600, SERIAL_8N1, 16, 17);
 
-  // wait for serial monitor to open
+  // Esperar hasta que se abra el monitor serial
   while(! Serial);
 
   Serial.print("Connecting to Adafruit IO");
 
-  // connect to io.adafruit.com
+  // Conectar a io.adafruit.com
   io.connect();
 
-  // set up a message handler for the count feed.
-  // the handleMessage function (defined below)
-  // will be called whenever a message is
-  // received from adafruit io.
-  counter->onMessage(handleMessage);
+  // Message Handlers
+  motorDCFeed ->  onMessage(handleMotor);
+  stepperFeed ->  onMessage(handleStepper);
+  servoFeed   ->  onMessage(handleServo);
 
-  // 1. Vinculamos el feed "motorDCFeed" con una función de manejo
-  motorDCFeed->onMessage(handleMotor);
-
-  comandoFeed->onMessage(handleComando);
-
-  // wait for a connection
+  // Esperar a una conexión
   while(io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
 
-  // we are connected
+  // Nos conectamos
   Serial.println();
   Serial.println(io.statusText());
-  counter->get();
-
 }
 
 void loop() {
+  // io.run debe estar en loop para sostener conexión.
   io.run();
 
+  // Aplicar delay
   if (millis() > (lastUpdate + IO_LOOP_DELAY)) {
-    
-    // CAMBIO AQUÍ: Vamos a enviar un número fijo para probar
-    int miNumero = 23440; 
-    
-    Serial.print("Enviando a Adafruit IO -> ");
-    Serial.println(miNumero);
-    
-    // Enviamos el número al feed
-    counter->save(miNumero);
+    // Solicitar datos al maestro
+    //Serial2.print('Q'); // El valor recibido en el serial 2 debería ser el valor de humedad
 
-    temperaturaFeed -> save(miNumero);
-    humedadFeed -> save(miNumero);
-
+    // Actualizar contador
     lastUpdate = millis();
   }
 }
 
-// this function is called whenever a 'counter' message
-// is received from Adafruit IO. it was attached to
-// the counter feed in the setup() function above.
-void handleMessage(AdafruitIO_Data *data) {
-
-  Serial.print("received <- ");
-  Serial.println(data->value());
-
-}
-
+/****************************************************************/
+// Message Handlers
+/****************************************************************/
 void handleMotor(AdafruitIO_Data *data) {
-  
-  Serial.print("Botón recibido -> ");
-  Serial.println(data->value()); // Imprime "1" o "0"
-
-  // Convertimos el dato a entero para usarlo fácilmente
-  int estado = data->toInt();
-
-  if (estado == 1) {
-    Serial.println("¡Encendiendo Motor!");
-    // digitalWrite(PIN_MOTOR, HIGH); // Aquí podrías activar un pin real
+  // Convertimos a entero para una comparación numérica segura
+  if (data->toInt() == 1) { 
+    Serial.println("MOTOR -> Ventilador encendido.");
+    Serial2.println("F1"); // Enviamos F1 + \n para el Maestro
   } else {
-    Serial.println("Apagando Motor...");
-    // digitalWrite(PIN_MOTOR, LOW);
+    Serial.println("MOTOR -> Ventilador apagado.");
+    Serial2.println("F0");
   }
 }
 
-void handleComando(AdafruitIO_Data *data) {
-  // Extraemos el valor como texto
-  String valor = data->value(); 
-
-  Serial.print("Comando recibido: ");
-  Serial.println(valor);
-
-  // Comparamos con comillas DOBLES porque es un String
-  if (valor == "A") {
-    Serial.println("Acción para A: Enviando al Serial 2");
-    Serial2.print('A'); 
-  } 
-  else if (valor == "B") {
-    Serial.println("Acción para B: Enviando al Serial 2");
-    Serial2.print('B');
+void handleStepper(AdafruitIO_Data *data) {
+  if (data->toInt() == 1) {
+    Serial.println("STEPPER -> Bomba activada.");
+    Serial2.println("P1");
+  } else {
+    Serial.println("STEPPER -> Bomba desactivada.");
+    Serial2.println("P0");
   }
 }
+
+void handleServo(AdafruitIO_Data *data) {
+  if (data->toInt() == 1) {
+    Serial.println("SERVO -> Puerta Abierta.");
+    Serial2.println("S1");
+  } else {
+    Serial.println("SERVO -> Puerta Cerrada.");
+    Serial2.println("S0");
+  }
+}
+
