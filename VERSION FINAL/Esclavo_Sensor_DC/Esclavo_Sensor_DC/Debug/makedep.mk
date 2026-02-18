@@ -6,6 +6,8 @@ ADC.c
 
 dc_motor.c
 
+DHT11.c
+
 I2C_Slave.c
 
 main.c

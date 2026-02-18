@@ -132,6 +132,12 @@
     <Compile Include="dc_motor.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="DHT11.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DHT11.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="I2C_Slave.c">
       <SubType>compile</SubType>
     </Compile>

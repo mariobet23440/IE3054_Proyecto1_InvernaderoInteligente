@@ -124,11 +124,10 @@ uint8_t Map_Soil_Percentage(uint8_t raw_value) {
 void Process_Command(void) {
     switch (rx_buffer[0]) {
         case 'Q': {
-            //uint8_t percentage = Map_Soil_Percentage(Read_Soil());
-            //sprintf(lcd_buf, "Soil Hum: %d%%\r\n", percentage);
-			sprintf(lcd_buf, "Soil Hum: %d%%\r\n", Read_Soil());
+            uint8_t percentage = Map_Soil_Percentage(Read_Soil());
+            sprintf(lcd_buf, "Soil Hum: %d%%\r\n", percentage);
             UART_SendString(lcd_buf);
-            //UART_SendString(percentage > 40 ? "Status: OK\r\n" : "Status: DRY\r\n");
+            UART_SendString(percentage > 40 ? "Status: OK\r\n" : "Status: DRY\r\n");
         } break;
 
         case 'L': {
