@@ -76,6 +76,9 @@ void setup(void)
 	LCD_SetCursor(&lcd, 0, 0);
 	LCD_WriteString(&lcd, "INVERNADERO OK");
 	UART_SendString("Sistema listo\r\n");
+	
+	_delay_ms(500);
+	LCD_Clear(&lcd);
 }
 
 // --- MAIN ---
